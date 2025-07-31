@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Reportes - FreePets</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: #f7f7f7;
+      padding: 20px;
+    }
+    h2 {
+      color: #333;
+    }
+    form {
+      background: white;
+      padding: 20px;
+      margin-bottom: 30px;
+      border-radius: 8px;
+      box-shadow: 0 0 10px rgba(0,0,0,0.1);
+    }
+    label {
+      display: block;
+      margin: 10px 0 5px;
+    }
+    input, select, textarea {
+      width: 100%;
+      padding: 8px;
+      margin-bottom: 10px;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+    }
+    button {
+      background: #28a745;
+      color: white;
+      padding: 10px 15px;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+    }
+    button:hover {
+      background: #218838;
+    }
+  </style>
+</head>
+<body>
+
+  <h2>🐾 Reportar Mascota</h2>
+  <form id="mascotaForm">
+    <label for="tipoMascota">Tipo de reporte</label>
+    <select id="tipoMascota" required>
+      <option value="">Seleccione</option>
+      <option value="Perdida">Perdida</option>
+      <option value="Encontrada">Encontrada</option>
+      <option value="En adopcion">En adopción</option>
+    </select>
+
+    <label for="nombreMascota">Nombre (opcional)</label>
+    <input type="text" id="nombreMascota">
+
+    <label for="especie">Especie / Raza / Color</label>
+    <input type="text" id="especie" required>
+
+    <label for="lugarMascota">Lugar del reporte</label>
+    <input type="text" id="lugarMascota" required>
+
+    <label for="fechaMascota">Fecha</label>
+    <input type="date" id="fechaMascota" required>
+
+    <label for="fotoMascota">Foto (opcional)</label>
+    <input type="file" id="fotoMascota" accept="image/*">
+
+    <label for="descMascota">Descripción</label>
+    <textarea id="descMascota" rows="4" required></textarea>
+
+    <button type="button" onclick="enviarReporteMascota()">Enviar Reporte de Mascota</button>
+  </form>
+
+  <h2>🚨 Reportar Situación Precaria</h2>
+  <form id="situacionForm">
+    <label for="tipoSituacion">Tipo de situación</label>
+    <select id="tipoSituacion" required>
+      <option value="">Seleccione</option>
+      <option value="Maltrato">Maltrato</option>
+      <option value="Abandono">Abandono</option>
+      <option value="Falta de alimento">Falta de alimento</option>
+      <option value="Otro">Otro</option>
+    </select>
+
+    <label for="direccion">Lugar o dirección</label>
+    <input type="text" id="direccion" required>
+
+    <label for="fechaSituacion">Fecha</label>
+    <input type="date" id="fechaSituacion" required>
+
+    <label for="fotoSituacion">Foto (opcional)</label>
+    <input type="file" id="fotoSituacion" accept="image/*">
+
+    <label for="descSituacion">Descripción</label>
+    <textarea id="descSituacion" rows="4" required></textarea>
+
+    <button type="button" onclick="enviarReporteSituacion()">Enviar Reporte de Situación</button>
+  </form>
+
+  <script>
+    function enviarReporteMascota() {
+      const datos = {
+        tipo: document.getElementById('tipoMascota').value,
+        nombre: document.getElementById('nombreMascota').value,
+        especie: document.getElementById('especie').value,
+        lugar: document.getElementById('lugarMascota').value,
+        fecha: document.getElementById('fechaMascota').value,
+        descripcion: document.getElementById('descMascota').value
+      };
+      alert("Reporte de mascota enviado:\n" + JSON.stringify(datos, null, 2));
+    }
+
+    function enviarReporteSituacion() {
+      const datos = {
+        tipo: document.getElementById('tipoSituacion').value,
+        direccion: document.getElementById('direccion').value,
+        fecha: document.getElementById('fechaSituacion').value,
+        descripcion: document.getElementById('descSituacion').value
+      };
+      alert("Reporte de situación enviado:\n" + JSON.stringify(datos, null, 2));
+    }
+  </script>
+
+</body>
+</html>

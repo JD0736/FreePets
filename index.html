@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="vista/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css" integrity="sha512-Evv84Mr4kqVGRNSgIGL/F/aIDqQb7xQ2vcrdIwxfjThSH8CSR7PBEakCr51Ck+w+/U6swU2Im1vVX0SVk9ABhg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <title>Free Pets</title>
+</head>
+
+<body>
+
+    <header class="header">
+        <a href="#" class="logo">
+            <img src="multimedia/Imagen1.png" alt="Logo Free Pets">
+        </a>
+
+        <nav class="navbar">
+            <a href="#home">Inicio</a>
+
+          <div class="dropdown">
+    <a href="#about" class="dropbtn">Nosotros</a>
+    <div class="dropdown-content">
+      <a href="mision_y_vision.html">Misión y Visión</a>
+    </div>
+  </div>
+       <a href="#services" class="dropbtn">Servicios</a>
+    <div class="dropdown-content">
+      <a href="adopcion.html">Centro de adopción</a>
+    </div>
+        <div class="dropdown-content">
+      <a href="eventos.html">Eventos solidarios</a>
+    </div>
+        <div class="dropdown-content">
+      <a href="reportes.html">Reportar mascotas</a>
+          <div class="dropdown-content">
+      <a href="donacion.html">Donar</a>
+    </div>
+    </div>
+  </div>
+            <a href="#contact">Contacto</a>
+            <a href="login.html">Iniciar Sesión</a>
+        </nav>
+
+        <div class="icons">
+            <div class="fas fa-bars" id="menu-btn"></div>
+        </div>
+    </header>
+
+    <section class="home" id="home">
+    <div class="carousel-container">
+        <div class="carousel" id="carousel-images">
+            <img src="multimedia/descargar.jpg" alt="Mascota 1">
+            <img src="multimedia/carrusel 2.jpg" alt="Mascota 2">
+            <img src="multimedia/carrusel.jpg" alt="Mascota 3">
+        </div>
+        <button class="carousel-btn" id="prevBtn">&#10094;</button>
+        <button class="carousel-btn" id="nextBtn">&#10095;</button>
+    </div>
+</section>
+
+
+    <section class="content about" id="about">
+        <h2 class="title">Nosotros</h2>
+        <p>Somos una organización sin ánimo de lucro dedicada a rescatar, cuidar y buscar familias responsables para animales en situación de abandono. Nuestro compromiso es darles una segunda oportunidad llena de amor.</p>
+    </section>
+
+    <section class="content services" id="services">
+        <h2 class="title">Servicios</h2>
+        <div class="service-grid">
+            <div class="service-item">
+                <img src="multimedia/perro y humano.avif" alt="Adopciones">
+                <a href="adopcion.html"><div class="btn">Centro de adopción</div></a>
+            </div>
+            <div class="service-item">
+                <img src="multimedia/eventos.jpg" alt="Eventos">
+                <div class="btn">Eventos solidarios</div>
+            </div>
+            <div class="service-item">
+                <img src="multimedia/perro abandonado.jpg" alt="Reportes">
+                <div class="btn">Reportar mascotas </div>
+            </div>
+             <div class="service-item">
+                <img src="multimedia/descargar.png" alt="Donar">
+                <div class="btn">Donar</div>
+            </div>
+        </div>
+    </section>
+    <section class="content image"></section>
+
+
+    <section class="content contact" id="contact">
+        <h2 class="title">Contacto</h2>
+        <p>¿Tienes preguntas? ¡Contáctanos!</p>
+        <h3>Teléfono: 300 762 09 48</h3>
+        <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3645.396664609902!2d-75.56212461727259!3d6.3252043816440375!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x8e442f0fa0af557b%3A0x15d05bf2badcec71!2sInstituci%C3%B3n%20Educativa%20Tom%C3%A1s%20Cadavid%20Restrepo!5e1!3m2!1ses-419!2sco!4v1744996658796!5m2!1ses-419!2sco" width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+    </section>
+
+    <footer class="footer">
+        <h6>© Free Pets 2025 - Todos los derechos reservados</h6>
+    </footer>
+
+    <script src="js/script.js"></script>
+</body>
+
+</html>

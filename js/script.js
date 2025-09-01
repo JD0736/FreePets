@@ -8,26 +8,7 @@ if (menuBtn) {
   };
 }
 
-// --- Carrusel de inicio ---
-const track = document.getElementById("carousel-track");
-const slides = document.querySelectorAll(".carousel-slide");
-let currentIndex = 0;
 
-if (track && slides.length > 0) {
-  document.getElementById("nextBtn").addEventListener("click", () => {
-    currentIndex = (currentIndex + 1) % slides.length;
-    updateCarousel();
-  });
-
-  document.getElementById("prevBtn").addEventListener("click", () => {
-    currentIndex = (currentIndex - 1 + slides.length) % slides.length;
-    updateCarousel();
-  });
-
-  function updateCarousel() {
-    track.style.transform = `translateX(-${currentIndex * 100}%)`;
-  }
-}
 
 // --- Alternar secciones en adopcion.html ---
 function mostrarSeccion(seccion) {
@@ -59,7 +40,7 @@ function mostrarSeccion(seccion) {
    };
       alert("Reporte de situación enviado:\n" + JSON.stringify(datos, null, 2));
     }
-     // Tabs con JS
+
     const tabs = document.querySelectorAll(".tab");
     const contents = document.querySelectorAll(".form-content");
 
@@ -71,4 +52,78 @@ function mostrarSeccion(seccion) {
         document.getElementById(tab.dataset.target).classList.add("active");
       });
     });
+
+    // Carrusel functionality
+document.addEventListener('DOMContentLoaded', function() {
+    const carousel = document.getElementById('carousel-images');
+    const images = document.querySelectorAll('.carousel img');
+    const prevBtn = document.getElementById('prevBtn');
+    const nextBtn = document.getElementById('nextBtn');
+    const indicators = document.querySelectorAll('.carousel-indicator');
+    
+    let currentIndex = 0;
+    const totalImages = images.length;
+    
+    // Configurar el ancho del carrusel
+    carousel.style.width = `${totalImages * 100}%`;
+    
+    // Actualizar carrusel
+    function updateCarousel() {
+        carousel.style.transform = `translateX(-${currentIndex * (100 / totalImages)}%)`;
+        
+        // Actualizar indicadores
+        indicators.forEach((indicator, index) => {
+            if (index === currentIndex) {
+                indicator.classList.add('active');
+            } else {
+                indicator.classList.remove('active');
+            }
+        });
+        
+        // Reiniciar temporizador de auto-avance
+        clearInterval(autoAdvance);
+        autoAdvance = setInterval(nextImage, 5000);
+    }
+    
+    // Avanzar a la siguiente imagen
+    function nextImage() {
+        currentIndex = (currentIndex + 1) % totalImages;
+        updateCarousel();
+    }
+    
+    // Retroceder a la imagen anterior
+    function prevImage() {
+        currentIndex = (currentIndex - 1 + totalImages) % totalImages;
+        updateCarousel();
+    }
+    
+    // Event listeners para botones
+    nextBtn.addEventListener('click', nextImage);
+    prevBtn.addEventListener('click', prevImage);
+    
+    // Event listeners para indicadores
+    indicators.forEach((indicator, index) => {
+        indicator.addEventListener('click', () => {
+            currentIndex = index;
+            updateCarousel();
+        });
+    });
+    
+    // Auto-avance cada 5 segundos
+    let autoAdvance = setInterval(nextImage, 5000);
+    
+    // Pausar auto-avance al pasar el mouse sobre el carrusel
+    carousel.addEventListener('mouseenter', () => {
+        clearInterval(autoAdvance);
+    });
+    
+    // Reanudar auto-avance al quitar el mouse del carrusel
+    carousel.addEventListener('mouseleave', () => {
+        autoAdvance = setInterval(nextImage, 5000);
+    });
+    
+    // Inicializar carrusel
+    updateCarousel();
+});
+
 }

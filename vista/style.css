@@ -212,68 +212,497 @@ p{
     font-size: 3rem;
 }
 
-.register-box {
-      background-color: #fff;
-      padding: 3rem 2rem;
-      border-radius: 25px;
-      box-shadow: 0 12px 25px rgba(0,0,0,0.1);
-      width: 100%;
-      max-width: 480px;
-      text-align: center;
-    }
-
-    .register-box h2 {
-      margin-bottom: 1.5rem;
-      color: #333;
-      font-size: 1.8rem;
-    }
-
-    .register-box input, .register-box select {
-      width: 100%;
-      padding: 0.9rem;
-      margin: 0.6rem 0;
-      border-radius: 12px;
-      border: 1px solid #ccc;
-    }
-
-    .register-box button {
-      width: 100%;
-      padding: 0.9rem;
-      background-color: #fcb69f;
-      border: none;
-      color: white;
-      font-size: 1rem;
-      font-weight: bold;
-      border-radius: 12px;
-      cursor: pointer;
-      transition: background-color 0.3s;
-    }
-
-    .register-box button:hover {
-      background-color: #f7a889;
-    }
-    .back-login {
-  text-align: center;
-  margin-top: 20px;
+/* --- Mejoras para las cards de adopción --- */
+.adopcion .title {
+    color: #4aa6b5;
+    margin-bottom: 4rem;
 }
 
-.back-login a {
-  display: inline-block;
-  background-color: #f4c2c2; /* rosa pastel */
-  color: #fff;
-  padding: 10px 25px;
-  border-radius: 25px;
-  text-decoration: none;
-  font-weight: bold;
-  transition: background-color 0.3s ease;
+.adopcion-opciones {
+    margin: 4rem 0;
+    text-align: center;
 }
 
-.back-login a:hover {
-  background-color: #e6a8a8; /* rosa un poco más oscuro al pasar el cursor */
+.adopcion-opciones button {
+    padding: 1.5rem 3rem;
+    margin: 0 2rem;
+    background-color: #4aa6b5;
+    border: none;
+    border-radius: 1rem;
+    color: white;
+    font-size: 2rem;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
 }
 
+.adopcion-opciones button:hover {
+    background-color: #3b8c9a;
+    transform: translateY(-3px);
+}
 
+.mascotas-grid {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 4rem;
+    margin-top: 4rem;
+    padding: 0 2rem;
+}
+
+.mascota-card {
+    background: #f9f9f9;
+    border-radius: 2rem;
+    padding: 2rem;
+    width: 35rem;
+    box-shadow: 0 0 1.5rem rgba(0,0,0,0.1);
+    transition: transform 0.3s ease;
+    text-align: center;
+}
+
+.mascota-card:hover {
+    transform: translateY(-10px);
+}
+
+.mascota-card img {
+    width: 100%;
+    height: 25rem;
+    object-fit: cover;
+    border-radius: 1.5rem;
+    margin-bottom: 2rem;
+    border: 3px solid #df9d40;
+}
+
+.mascota-card h3 {
+    margin: 1rem 0;
+    color: #446468;
+    font-size: 2.5rem;
+}
+
+.mascota-card p {
+    font-size: 1.8rem;
+    color: #666;
+    margin-bottom: 2rem;
+    line-height: 1.6;
+}
+
+.mascota-card .btn {
+    background-color: #df9d40;
+    color: white;
+    font-size: 1.8rem;
+    padding: 1rem 2.5rem;
+    border: none;
+    border-radius: 1rem;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    display: inline-block;
+}
+
+.mascota-card .btn:hover {
+    background-color: #aa7a46;
+    transform: translateY(-3px);
+}
+
+/* Formulario de registro */
+.formulario-registro {
+    background: white;
+    padding: 3rem;
+    border-radius: 2rem;
+    box-shadow: 0 0 1.5rem rgba(0,0,0,0.1);
+    max-width: 60rem;
+    margin: 0 auto;
+}
+
+.formulario-registro label {
+    display: block;
+    margin: 1.5rem 0 0.5rem;
+    font-size: 1.8rem;
+    color: #446468;
+    text-align: left;
+}
+
+.formulario-registro input,
+.formulario-registro textarea {
+    width: 100%;
+    padding: 1.2rem;
+    margin-bottom: 1.5rem;
+    border: 1px solid #ccc;
+    border-radius: 1rem;
+    font-size: 1.6rem;
+    font-family: "Oswald", sans-serif;
+}
+
+.formulario-registro button[type="submit"] {
+    background-color: #4aa6b5;
+    color: white;
+    padding: 1.2rem 2.5rem;
+    border: none;
+    border-radius: 1rem;
+    font-size: 2rem;
+    cursor: pointer;
+    margin-top: 1rem;
+    width: 100%;
+    transition: background-color 0.3s ease;
+}
+
+.formulario-registro button[type="submit"]:hover {
+    background-color: #3b8c9a;
+}
+
+/* Estilos para la sección de donaciones (para consistencia) */
+.donaciones {
+    padding: 5rem 2rem;
+    text-align: center;
+}
+
+.donaciones h2 {
+    color: #4aa6b5;
+    font-size: 3.5rem;
+    margin: 3rem 0 2rem;
+}
+
+.donaciones form {
+    background: white;
+    padding: 2.5rem;
+    border-radius: 2rem;
+    box-shadow: 0 0 1.5rem rgba(0,0,0,0.1);
+    max-width: 50rem;
+    margin: 0 auto 4rem;
+}
+
+.donaciones input {
+    width: 100%;
+    padding: 1.2rem;
+    margin: 1rem 0;
+    border: 1px solid #ccc;
+    border-radius: 1rem;
+    font-size: 1.6rem;
+}
+
+.donaciones button {
+    background-color: #df9d40;
+    color: white;
+    padding: 1.2rem 2.5rem;
+    border: none;
+    border-radius: 1rem;
+    font-size: 1.8rem;
+    cursor: pointer;
+    margin-top: 1rem;
+    transition: background-color 0.3s ease;
+}
+
+.donaciones button:hover {
+    background-color: #aa7a46;
+}
+
+/* --- Estilos para Misión y Visión --- */
+.mision-vision {
+    padding: 10rem 5%;
+    text-align: center;
+    background: #f9f9f9;
+}
+
+.mision-vision h2 {
+    color: #4aa6b5;
+    font-size: 4rem;
+    margin-bottom: 2rem;
+    text-transform: uppercase;
+}
+
+.mision-vision p {
+    font-size: 2.2rem;
+    color: #446468;
+    line-height: 1.6;
+    max-width: 80rem;
+    margin: 0 auto 6rem;
+    padding: 3rem;
+    background: white;
+    border-radius: 2rem;
+    box-shadow: 0 0 1.5rem rgba(0,0,0,0.1);
+    border-left: 5px solid #df9d40;
+}
+
+/* --- Estilos para Reportes --- */
+.reportes-container {
+    padding: 10rem 5%;
+    background: #f9f9f9;
+}
+
+.reportes-container h2 {
+    color: #4aa6b5;
+    font-size: 4rem;
+    margin-bottom: 4rem;
+    text-align: center;
+}
+
+.reporte-form {
+    background: white;
+    padding: 3rem;
+    border-radius: 2rem;
+    box-shadow: 0 0 1.5rem rgba(0,0,0,0.1);
+    margin-bottom: 4rem;
+    max-width: 80rem;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.reporte-form label {
+    display: block;
+    margin: 1.5rem 0 0.5rem;
+    font-size: 1.8rem;
+    color: #446468;
+    text-align: left;
+}
+
+.reporte-form input,
+.reporte-form select,
+.reporte-form textarea {
+    width: 100%;
+    padding: 1.2rem;
+    margin-bottom: 1.5rem;
+    border: 1px solid #ccc;
+    border-radius: 1rem;
+    font-size: 1.6rem;
+    font-family: "Oswald", sans-serif;
+}
+
+.reporte-form button {
+    background-color: #df9d40;
+    color: white;
+    padding: 1.2rem 2.5rem;
+    border: none;
+    border-radius: 1rem;
+    font-size: 1.8rem;
+    cursor: pointer;
+    margin-top: 1rem;
+    width: 100%;
+    transition: background-color 0.3s ease;
+}
+
+.reporte-form button:hover {
+    background-color: #aa7a46;
+}
+
+/* --- Estilos para Formulario de Contacto --- */
+.contact-form {
+    background: white;
+    padding: 3rem;
+    border-radius: 2rem;
+    box-shadow: 0 0 1.5rem rgba(0,0,0,0.1);
+    max-width: 60rem;
+    margin: 4rem auto;
+}
+
+.contact-form label {
+    display: block;
+    margin: 1.5rem 0 0.5rem;
+    font-size: 1.8rem;
+    color: #446468;
+    text-align: left;
+}
+
+.contact-form input,
+.contact-form textarea {
+    width: 100%;
+    padding: 1.2rem;
+    margin-bottom: 1.5rem;
+    border: 1px solid #ccc;
+    border-radius: 1rem;
+    font-size: 1.6rem;
+    font-family: "Oswald", sans-serif;
+}
+
+.contact-form button {
+    background-color: #4aa6b5;
+    color: white;
+    padding: 1.2rem 2.5rem;
+    border: none;
+    border-radius: 1rem;
+    font-size: 2rem;
+    cursor: pointer;
+    margin-top: 1rem;
+    width: 100%;
+    transition: background-color 0.3s ease;
+}
+
+.contact-form button:hover {
+    background-color: #3b8c9a;
+}
  
+
+/* --- Estilos para el Carrusel --- */
+.carousel-container {
+    position: relative;
+    width: 100%;
+    height: 100vh;
+    overflow: hidden;
+    margin-top: 9rem;
+}
+
+.carousel {
+    display: flex;
+    transition: transform 0.5s ease-in-out;
+    height: 100%;
+}
+
+.carousel img {
+    min-width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+}
+
+.carousel-btn {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    background-color: rgba(74, 166, 181, 0.7);
+    color: white;
+    border: none;
+    padding: 1.5rem;
+    cursor: pointer;
+    font-size: 2rem;
+    z-index: 100;
+    transition: background-color 0.3s ease;
+}
+
+.carousel-btn:hover {
+    background-color: rgba(74, 166, 181, 0.9);
+}
+
+#prevBtn {
+    left: 2rem;
+    border-radius: 50% 0 0 50%;
+}
+
+#nextBtn {
+    right: 2rem;
+    border-radius: 0 50% 50% 0;
+}
+
+.carousel-indicators {
+    position: absolute;
+    bottom: 2rem;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    gap: 1rem;
+}
+
+.carousel-indicator {
+    width: 1.2rem;
+    height: 1.2rem;
+    border-radius: 50%;
+    background-color: rgba(255, 255, 255, 0.5);
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.carousel-indicator.active {
+    background-color: #df9d40;
+}
+
+.carousel-caption {
+    position: absolute;
+    bottom: 20%;
+    left: 50%;
+    transform: translateX(-50%);
+    text-align: center;
+    color: white;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.7);
+    max-width: 80%;
+}
+
+.carousel-caption h2 {
+    font-size: 5rem;
+    margin-bottom: 1rem;
+    color: white;
+}
+
+.carousel-caption p {
+    font-size: 2.5rem;
+    margin-bottom: 2rem;
+    color: white;
+}
+
+.carousel-caption .btn {
+    background-color: #df9d40;
+    color: white;
+    padding: 1.2rem 2.5rem;
+    border: none;
+    border-radius: 1rem;
+    font-size: 2rem;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    display: inline-block;
+}
+
+.carousel-caption .btn:hover {
+    background-color: #aa7a46;
+    transform: translateY(-3px);
+}
+
+/* Ajustes para la estructura del carrusel */
+.carousel-slide {
+    position: relative;
+    min-width: 100%;
+    height: 100%;
+}
+
+/* Ajustes responsivos para el carrusel */
+@media (max-width: 991px) {
+    .carousel-caption h2 {
+        font-size: 3.5rem;
+    }
+    
+    .carousel-caption p {
+        font-size: 2rem;
+    }
+    
+    .carousel-caption .btn {
+        font-size: 1.6rem;
+        padding: 1rem 2rem;
+    }
+}
+
+@media (max-width: 768px) {
+    .carousel-caption h2 {
+        font-size: 2.8rem;
+    }
+    
+    .carousel-caption p {
+        font-size: 1.6rem;
+    }
+    
+    .carousel-caption {
+        bottom: 15%;
+    }
+    
+    .carousel-btn {
+        padding: 1rem;
+        font-size: 1.5rem;
+    }
+}
+
+@media (max-width: 450px) {
+    .carousel-caption h2 {
+        font-size: 2.2rem;
+    }
+    
+    .carousel-caption p {
+        font-size: 1.4rem;
+    }
+    
+    .carousel-caption .btn {
+        font-size: 1.4rem;
+        padding: 0.8rem 1.5rem;
+    }
+    
+    .carousel-indicators {
+        bottom: 1rem;
+    }
+}
+
 .image {
     height: 300px;
     background-image: url(../multimedia/pet-parasites.jpg); /* Asegúrate de que el archivo exista */

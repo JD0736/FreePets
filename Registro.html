@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Registrarse</title>
+  <link rel="stylesheet" href="vista/style.css">
+</head>
+<body>
+  <div class="register-box">
+    <h2>Crear una cuenta</h2>
+    <form method="post" action="procesarregistro.php">
+      <input type="text" name="nombre" placeholder="Nombre completo" required>
+      <input type="email" name="correo" placeholder="Correo electrónico" required>
+      <input type="tel" name="numero" placeholder="Número de teléfono" required>
+      
+
+      <input type="password" name="contraseña" placeholder="Contraseña" required>
+      <input type="password" name="confirmarcontraseña"  placeholder="Confirmar contraseña" required>
+      <button type="submit">Registrarse</button>
+    </form>
+
+  <div class="back-login">
+  <a href="login.html">← Volver al inicio de sesión</a>
+</div>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+
+</body>
+</html>

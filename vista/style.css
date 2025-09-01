@@ -212,8 +212,65 @@ p{
     font-size: 3rem;
 }
 
+.register-box {
+      background-color: #fff;
+      padding: 3rem 2rem;
+      border-radius: 25px;
+      box-shadow: 0 12px 25px rgba(0,0,0,0.1);
+      width: 100%;
+      max-width: 480px;
+      text-align: center;
+    }
 
+    .register-box h2 {
+      margin-bottom: 1.5rem;
+      color: #333;
+      font-size: 1.8rem;
+    }
 
+    .register-box input, .register-box select {
+      width: 100%;
+      padding: 0.9rem;
+      margin: 0.6rem 0;
+      border-radius: 12px;
+      border: 1px solid #ccc;
+    }
+
+    .register-box button {
+      width: 100%;
+      padding: 0.9rem;
+      background-color: #fcb69f;
+      border: none;
+      color: white;
+      font-size: 1rem;
+      font-weight: bold;
+      border-radius: 12px;
+      cursor: pointer;
+      transition: background-color 0.3s;
+    }
+
+    .register-box button:hover {
+      background-color: #f7a889;
+    }
+    .back-login {
+  text-align: center;
+  margin-top: 20px;
+}
+
+.back-login a {
+  display: inline-block;
+  background-color: #f4c2c2; /* rosa pastel */
+  color: #fff;
+  padding: 10px 25px;
+  border-radius: 25px;
+  text-decoration: none;
+  font-weight: bold;
+  transition: background-color 0.3s ease;
+}
+
+.back-login a:hover {
+  background-color: #e6a8a8; /* rosa un poco más oscuro al pasar el cursor */
+}
 .image {
     height: 300px;
     background-image: url(../multimedia/pet-parasites.jpg); /* Asegúrate de que el archivo exista */

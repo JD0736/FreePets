@@ -3,28 +3,45 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Registrarse</title>
-  <link rel="stylesheet" href="vista/style.css">
+  <title>Formulario - FreePets</title>
+  <link rel="stylesheet" href="vista/forms.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
 </head>
 <body>
-  <div class="register-box">
-    <h2>Crear una cuenta</h2>
-    <form method="post" action="procesarregistro.php">
-      <input type="text" name="nombre" placeholder="Nombre completo" required>
-      <input type="email" name="correo" placeholder="Correo electrónico" required>
-      <input type="tel" name="numero" placeholder="Número de teléfono" required>
-      
 
-      <input type="password" name="contraseña" placeholder="Contraseña" required>
-      <input type="password" name="confirmarcontraseña"  placeholder="Confirmar contraseña" required>
-      <button type="submit">Registrarse</button>
+  <div class="form-container">
+    <h2>Registro</h2>
+    <form action="#" method="post">
+      <div class="input-group">
+        <input type="text" name="nombre" placeholder="Nombre completo" required>
+        <i class="fa fa-user"></i>
+      </div>
+      <div class="input-group">
+        <input type="email" name="correo" placeholder="Correo electrónico" required>
+        <i class="fa fa-envelope"></i>
+      </div>
+      <div class="input-group">
+        <input type="password" name="password" placeholder="Contraseña" required>
+        <i class="fa fa-lock"></i>
+      </div>
+      <div class="input-group">
+        <select name="rol" required>
+          <option value="">Selecciona un rol</option>
+          <option value="adoptante">Adoptante</option>
+          <option value="voluntario">Voluntario</option>
+        </select>
+        <i class="fa fa-users"></i>
+      </div>
+      <div class="input-group">
+        <textarea name="comentarios" rows="3" placeholder="Comentarios opcionales"></textarea>
+        <i class="fa fa-comment"></i>
+      </div>
+      <button type="submit" class="btn-submit">Enviar</button>
     </form>
-
-  <div class="back-login">
-  <a href="login.html">← Volver al inicio de sesión</a>
-</div>
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-
+    <div class="form-links">
+      <a href="#">¿Ya tienes cuenta? Inicia sesión</a>
+    </div>
+  </div>
 
 </body>
 </html>

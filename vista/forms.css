@@ -1,0 +1,135 @@
+/* Reset */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: Arial, sans-serif;
+  background: linear-gradient(135deg, #004aad, #008060);
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+/* Contenedor principal */
+.form-container {
+  background: #fff;
+  padding: 25px 20px;
+  border-radius: 12px;
+  border: 2px solid #004aad;
+  box-shadow: 0 6px 18px rgba(0,0,0,0.2);
+  width: 100%;
+  max-width: 420px;
+  animation: fadeIn 0.8s ease;
+}
+
+/* Tabs */
+.tabs {
+  display: flex;
+  justify-content: space-around;
+  margin-bottom: 20px;
+  border-bottom: 2px solid #ccc;
+}
+
+.tab {
+  flex: 1;
+  text-align: center;
+  padding: 10px;
+  cursor: pointer;
+  font-weight: bold;
+  color: #444;
+  transition: color 0.3s, border-bottom 0.3s;
+}
+
+.tab.active {
+  color: #004aad;
+  border-bottom: 2px solid #004aad;
+}
+
+/* Formularios */
+.form-content {
+  display: none;
+}
+
+.form-content.active {
+  display: block;
+}
+
+.form-content h2 {
+  text-align: center;
+  margin-bottom: 15px;
+  color: #004aad;
+}
+
+.input-group {
+  position: relative;
+  margin-bottom: 15px;
+}
+
+.input-group input,
+.input-group select {
+  width: 100%;
+  padding: 12px 40px 12px 12px;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  font-size: 15px;
+  transition: border-color 0.3s;
+}
+
+.input-group input:focus,
+.input-group select:focus {
+  border-color: #004aad;
+  outline: none;
+}
+
+.input-group i {
+  position: absolute;
+  right: 12px;
+  top: 50%;
+  transform: translateY(-50%);
+  color: #888;
+}
+
+.btn-submit {
+  width: 100%;
+  padding: 12px;
+  background-color: #008060;
+  color: #fff;
+  border: none;
+  border-radius: 8px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: background-color 0.3s ease, transform 0.1s ease;
+}
+
+.btn-submit:hover {
+  background-color: #00694e;
+}
+
+.btn-submit:active {
+  transform: scale(0.98);
+}
+
+.form-links {
+  margin-top: 10px;
+  text-align: center;
+  font-size: 14px;
+}
+
+.form-links a {
+  color: #004aad;
+  text-decoration: none;
+  font-weight: bold;
+}
+
+.form-links a:hover {
+  text-decoration: underline;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(-20px); }
+  to { opacity: 1; transform: translateY(0); }
+}

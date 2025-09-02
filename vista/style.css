@@ -1,45 +1,7 @@
 /* Paleta de Colores:  #4aa6b5  #446468 ,  #c62c38 #ae2632 ,  #df9d40 #aa7a46 */
-
 @import url('https://fonts.googleapis.com/css2?family=Oswald:wght@200..700&display=swap');
 
-
- body {
-      font-family: Arial, sans-serif;
-      background: #f7f7f7;
-      padding: 20px;
-    }
-    h2 {
-      color: #333;
-    }
-    form {
-      background: white;
-      padding: 20px;
-      margin-bottom: 30px;
-      border-radius: 8px;
-      box-shadow: 0 0 10px rgba(0,0,0,0.1);
-    }
-    label {
-      display: block;
-      margin: 10px 0 5px;
-    }
-    input, select, textarea {
-      width: 100%;
-      padding: 8px;
-      margin-bottom: 10px;
-      border: 1px solid #ccc;
-      border-radius: 4px;
-    }
-    button {
-      background: #28a745;
-      color: white;
-      padding: 10px 15px;
-      border: none;
-      border-radius: 4px;
-      cursor: pointer;
-    }
-    button:hover {
-      background: #218838;
-    }
+/* ===== RESET Y CONFIGURACIÓN GENERAL ===== */
 * {
     margin: 0;
     padding: 0;
@@ -52,40 +14,59 @@
     transition: .2s linear;
 }
 
-body {
-    font-family: "Oswald", sans-serif;
-    color: #4aa6b5;
-
-    text-align: center;
-}
-section{
-    padding: 2rem, 2%;
-}
-p {
-    font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode' Verdana, sans-serif;
-    color: #c62c38;
-}
-html{
+html {
     font-size: 62.5%;
     overflow-x: hidden;
     scroll-padding-top: 9rem;
     scroll-behavior: smooth;
 }
 
-html::-webkit-scrollbar{
+html::-webkit-scrollbar {
     width: .8rem;
 }
 
-html::-webkit-scrollbar-track{
+html::-webkit-scrollbar-track {
     background: transparent;
 }
 
-html::-webkit-scrollbar-thumb{
+html::-webkit-scrollbar-thumb {
     background: #fff;
     border-radius: 5rem;
 }
 
-header{
+body {
+    font-family: "Oswald", sans-serif;
+    color: #4aa6b5;
+    text-align: center;
+    background: #f7f7f7;
+    padding-top: 9rem; /* Espacio para el header fijo */
+}
+
+section {
+    padding: 8rem 5%;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.title {
+    margin-bottom: 6rem;
+    font-size: 6rem;
+    font-weight: 600;
+    color: #4aa6b5;
+}
+
+p {
+    font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Verdana, sans-serif;
+    color: #c62c38;
+    font-size: 2.2rem;
+    margin-bottom: 3rem;
+    line-height: 1.6;
+}
+
+/* ===== HEADER Y NAVEGACIÓN ===== */
+header {
     background-color: #4aa6b5;
     display: flex;
     align-items: center;
@@ -96,447 +77,100 @@ header{
     left: 0;
     right: 0;
     z-index: 1000;
+    height: 9rem;
 }
-.header .logo img{
-    height: 15rem;
+
+.header .logo img {
+    height: 6rem;
 }
-.header .navbar a{
+
+.header .navbar {
+    display: flex;
+    align-items: center;
+}
+
+.header .navbar a {
     color: #c62c38;
-    margin: 0.5rem;
-    font-size: 2.5rem;
+    margin: 0 1.5rem;
+    font-size: 2.2rem;
 }
 
-.header .navbar a:hover{
+.header .navbar a:hover {
     color: #df9d40;
-    border-bottom: .1rem solid #df9d40;
+    border-bottom: .2rem solid #df9d40;
     padding-bottom: .5rem;
-
 }
-.header .icons div{
+
+.header .icons div {
     color: #fff;
     cursor: pointer;
-    font-size: 7rem;
+    font-size: 3.5rem;
     margin-left: 2rem;
 }
-.header .icons div:hover{
+
+.header .icons div:hover {
     color: #c62c38;
 }
-#menu-btn{
+
+#menu-btn {
     display: none;
 }
 
+/* Dropdowns */
+.dropdown {
+    position: relative;
+    display: inline-block;
+}
 
-.home{
+.dropdown-content {
+    display: none;
+    position: absolute;
+    background-color: #4aa6b5;
+    min-width: 220px;
+    box-shadow: 0px 8px 16px rgba(0,0,0,0.2);
+    z-index: 1000;
+    border-radius: 8px;
+    padding: 1rem 0;
+    top: 100%;
+    left: 0;
+}
+
+.dropdown-content a {
+    display: block;
+    color: white;
+    padding: 1.2rem 1.6rem;
+    text-decoration: none;
+    font-size: 2rem;
+    border-bottom: 1px solid rgba(255,255,255,0.1);
+}
+
+.dropdown-content a:last-child {
+    border-bottom: none;
+}
+
+.dropdown-content a:hover {
+    background-color: #3b8c9a;
+}
+
+.dropdown:hover .dropdown-content {
+    display: block;
+}
+
+/* ===== SECCIÓN HOME Y CARRUSEL ===== */
+.home {
     position: relative;
     width: 100%;
     height: 100vh;
     overflow: hidden;
+    margin-top: -9rem;
+    padding-top: 9rem;
 }
 
-.home .content{
-    max-width: 60rem;
-
-}
-.home .content h1{
-    font-size: 12rem;
-    text-transform: uppercase;
-
-}
-.home .content p{
-    font-size: 3rem;
-    padding: 1rem 0;
-}
-.title{
-    margin-bottom: 12rem;
-    font-size: 10rem;
-    font-weight: 600;
-}
-p{
-    margin-bottom: 12rem;
-    font-size: 4rem;
-}
-.service-grid {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
-    gap: 4rem;
-    margin-top: 4rem;
-}
-
-.service-item {
-    background: #f9f9f9;
-    border-radius: 2rem;
-    padding: 2rem;
-    width: 30rem;
-    box-shadow: 0 0 1rem rgba(0,0,0,0.1);
-    transition: transform 0.3s ease;
-}
-
-.service-item img {
-    width: 100%;
-    height: 20rem;
-    object-fit: cover;
-    border-radius: 1.5rem;
-    margin-bottom: 2rem;
-}
-
-.service-item .btn {
-    background-color: #df9d40;
-    color: #fff;
-    padding: 1rem 2rem;
-    border-radius: 1rem;
-    font-size: 2rem;
-    margin-top: 1rem;
-    display: inline-block;
-}
-
-.service-item:hover {
-    transform: translateY(-10px);
-}
-.services{
-    background: #4aa6b5;
-}
-.services .title{
-    color: #fff;
-}
-.contact h3{
-    font-size: 3rem;
-    font-weight: 500;
-} 
-
-.footer {
-    margin-top: 5rem;
-    padding: 5rem;
-    background-color: #4aa6b5;
-    color: #fff;
-    font-size: 3rem;
-}
-
-/* --- Mejoras para las cards de adopción --- */
-.adopcion .title {
-    color: #4aa6b5;
-    margin-bottom: 4rem;
-}
-
-.adopcion-opciones {
-    margin: 4rem 0;
-    text-align: center;
-}
-
-.adopcion-opciones button {
-    padding: 1.5rem 3rem;
-    margin: 0 2rem;
-    background-color: #4aa6b5;
-    border: none;
-    border-radius: 1rem;
-    color: white;
-    font-size: 2rem;
-    font-weight: bold;
-    cursor: pointer;
-    transition: background-color 0.3s ease;
-}
-
-.adopcion-opciones button:hover {
-    background-color: #3b8c9a;
-    transform: translateY(-3px);
-}
-
-.mascotas-grid {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
-    gap: 4rem;
-    margin-top: 4rem;
-    padding: 0 2rem;
-}
-
-.mascota-card {
-    background: #f9f9f9;
-    border-radius: 2rem;
-    padding: 2rem;
-    width: 35rem;
-    box-shadow: 0 0 1.5rem rgba(0,0,0,0.1);
-    transition: transform 0.3s ease;
-    text-align: center;
-}
-
-.mascota-card:hover {
-    transform: translateY(-10px);
-}
-
-.mascota-card img {
-    width: 100%;
-    height: 25rem;
-    object-fit: cover;
-    border-radius: 1.5rem;
-    margin-bottom: 2rem;
-    border: 3px solid #df9d40;
-}
-
-.mascota-card h3 {
-    margin: 1rem 0;
-    color: #446468;
-    font-size: 2.5rem;
-}
-
-.mascota-card p {
-    font-size: 1.8rem;
-    color: #666;
-    margin-bottom: 2rem;
-    line-height: 1.6;
-}
-
-.mascota-card .btn {
-    background-color: #df9d40;
-    color: white;
-    font-size: 1.8rem;
-    padding: 1rem 2.5rem;
-    border: none;
-    border-radius: 1rem;
-    cursor: pointer;
-    transition: background-color 0.3s ease;
-    display: inline-block;
-}
-
-.mascota-card .btn:hover {
-    background-color: #aa7a46;
-    transform: translateY(-3px);
-}
-
-/* Formulario de registro */
-.formulario-registro {
-    background: white;
-    padding: 3rem;
-    border-radius: 2rem;
-    box-shadow: 0 0 1.5rem rgba(0,0,0,0.1);
-    max-width: 60rem;
-    margin: 0 auto;
-}
-
-.formulario-registro label {
-    display: block;
-    margin: 1.5rem 0 0.5rem;
-    font-size: 1.8rem;
-    color: #446468;
-    text-align: left;
-}
-
-.formulario-registro input,
-.formulario-registro textarea {
-    width: 100%;
-    padding: 1.2rem;
-    margin-bottom: 1.5rem;
-    border: 1px solid #ccc;
-    border-radius: 1rem;
-    font-size: 1.6rem;
-    font-family: "Oswald", sans-serif;
-}
-
-.formulario-registro button[type="submit"] {
-    background-color: #4aa6b5;
-    color: white;
-    padding: 1.2rem 2.5rem;
-    border: none;
-    border-radius: 1rem;
-    font-size: 2rem;
-    cursor: pointer;
-    margin-top: 1rem;
-    width: 100%;
-    transition: background-color 0.3s ease;
-}
-
-.formulario-registro button[type="submit"]:hover {
-    background-color: #3b8c9a;
-}
-
-/* Estilos para la sección de donaciones (para consistencia) */
-.donaciones {
-    padding: 5rem 2rem;
-    text-align: center;
-}
-
-.donaciones h2 {
-    color: #4aa6b5;
-    font-size: 3.5rem;
-    margin: 3rem 0 2rem;
-}
-
-.donaciones form {
-    background: white;
-    padding: 2.5rem;
-    border-radius: 2rem;
-    box-shadow: 0 0 1.5rem rgba(0,0,0,0.1);
-    max-width: 50rem;
-    margin: 0 auto 4rem;
-}
-
-.donaciones input {
-    width: 100%;
-    padding: 1.2rem;
-    margin: 1rem 0;
-    border: 1px solid #ccc;
-    border-radius: 1rem;
-    font-size: 1.6rem;
-}
-
-.donaciones button {
-    background-color: #df9d40;
-    color: white;
-    padding: 1.2rem 2.5rem;
-    border: none;
-    border-radius: 1rem;
-    font-size: 1.8rem;
-    cursor: pointer;
-    margin-top: 1rem;
-    transition: background-color 0.3s ease;
-}
-
-.donaciones button:hover {
-    background-color: #aa7a46;
-}
-
-/* --- Estilos para Misión y Visión --- */
-.mision-vision {
-    padding: 10rem 5%;
-    text-align: center;
-    background: #f9f9f9;
-}
-
-.mision-vision h2 {
-    color: #4aa6b5;
-    font-size: 4rem;
-    margin-bottom: 2rem;
-    text-transform: uppercase;
-}
-
-.mision-vision p {
-    font-size: 2.2rem;
-    color: #446468;
-    line-height: 1.6;
-    max-width: 80rem;
-    margin: 0 auto 6rem;
-    padding: 3rem;
-    background: white;
-    border-radius: 2rem;
-    box-shadow: 0 0 1.5rem rgba(0,0,0,0.1);
-    border-left: 5px solid #df9d40;
-}
-
-/* --- Estilos para Reportes --- */
-.reportes-container {
-    padding: 10rem 5%;
-    background: #f9f9f9;
-}
-
-.reportes-container h2 {
-    color: #4aa6b5;
-    font-size: 4rem;
-    margin-bottom: 4rem;
-    text-align: center;
-}
-
-.reporte-form {
-    background: white;
-    padding: 3rem;
-    border-radius: 2rem;
-    box-shadow: 0 0 1.5rem rgba(0,0,0,0.1);
-    margin-bottom: 4rem;
-    max-width: 80rem;
-    margin-left: auto;
-    margin-right: auto;
-}
-
-.reporte-form label {
-    display: block;
-    margin: 1.5rem 0 0.5rem;
-    font-size: 1.8rem;
-    color: #446468;
-    text-align: left;
-}
-
-.reporte-form input,
-.reporte-form select,
-.reporte-form textarea {
-    width: 100%;
-    padding: 1.2rem;
-    margin-bottom: 1.5rem;
-    border: 1px solid #ccc;
-    border-radius: 1rem;
-    font-size: 1.6rem;
-    font-family: "Oswald", sans-serif;
-}
-
-.reporte-form button {
-    background-color: #df9d40;
-    color: white;
-    padding: 1.2rem 2.5rem;
-    border: none;
-    border-radius: 1rem;
-    font-size: 1.8rem;
-    cursor: pointer;
-    margin-top: 1rem;
-    width: 100%;
-    transition: background-color 0.3s ease;
-}
-
-.reporte-form button:hover {
-    background-color: #aa7a46;
-}
-
-/* --- Estilos para Formulario de Contacto --- */
-.contact-form {
-    background: white;
-    padding: 3rem;
-    border-radius: 2rem;
-    box-shadow: 0 0 1.5rem rgba(0,0,0,0.1);
-    max-width: 60rem;
-    margin: 4rem auto;
-}
-
-.contact-form label {
-    display: block;
-    margin: 1.5rem 0 0.5rem;
-    font-size: 1.8rem;
-    color: #446468;
-    text-align: left;
-}
-
-.contact-form input,
-.contact-form textarea {
-    width: 100%;
-    padding: 1.2rem;
-    margin-bottom: 1.5rem;
-    border: 1px solid #ccc;
-    border-radius: 1rem;
-    font-size: 1.6rem;
-    font-family: "Oswald", sans-serif;
-}
-
-.contact-form button {
-    background-color: #4aa6b5;
-    color: white;
-    padding: 1.2rem 2.5rem;
-    border: none;
-    border-radius: 1rem;
-    font-size: 2rem;
-    cursor: pointer;
-    margin-top: 1rem;
-    width: 100%;
-    transition: background-color 0.3s ease;
-}
-
-.contact-form button:hover {
-    background-color: #3b8c9a;
-}
- 
-
-/* --- Estilos para el Carrusel --- */
 .carousel-container {
     position: relative;
     width: 100%;
-    height: 100vh;
+    height: 100%;
     overflow: hidden;
-    margin-top: 9rem;
 }
 
 .carousel {
@@ -545,8 +179,14 @@ p{
     height: 100%;
 }
 
-.carousel img {
+.carousel-slide {
+    position: relative;
     min-width: 100%;
+    height: 100%;
+}
+
+.carousel-slide img {
+    width: 100%;
     height: 100%;
     object-fit: cover;
     display: block;
@@ -616,7 +256,6 @@ p{
 .carousel-caption h2 {
     font-size: 5rem;
     margin-bottom: 1rem;
-    color: white;
 }
 
 .carousel-caption p {
@@ -642,148 +281,146 @@ p{
     transform: translateY(-3px);
 }
 
-/* Ajustes para la estructura del carrusel */
-.carousel-slide {
-    position: relative;
-    min-width: 100%;
-    height: 100%;
+/* ===== SECCIÓN NOSOTROS ===== */
+.about {
+    background: #f9f9f9;
 }
 
-/* Ajustes responsivos para el carrusel */
-@media (max-width: 991px) {
-    .carousel-caption h2 {
-        font-size: 3.5rem;
-    }
-    
-    .carousel-caption p {
-        font-size: 2rem;
-    }
-    
-    .carousel-caption .btn {
-        font-size: 1.6rem;
-        padding: 1rem 2rem;
-    }
+/* ===== SECCIÓN SERVICIOS ===== */
+.services {
+    background: #4aa6b5;
 }
 
-@media (max-width: 768px) {
-    .carousel-caption h2 {
-        font-size: 2.8rem;
-    }
-    
-    .carousel-caption p {
-        font-size: 1.6rem;
-    }
-    
-    .carousel-caption {
-        bottom: 15%;
-    }
-    
-    .carousel-btn {
-        padding: 1rem;
-        font-size: 1.5rem;
-    }
+.services .title {
+    color: #fff;
 }
 
-@media (max-width: 450px) {
-    .carousel-caption h2 {
-        font-size: 2.2rem;
-    }
-    
-    .carousel-caption p {
-        font-size: 1.4rem;
-    }
-    
-    .carousel-caption .btn {
-        font-size: 1.4rem;
-        padding: 0.8rem 1.5rem;
-    }
-    
-    .carousel-indicators {
-        bottom: 1rem;
-    }
-}
-/* --- Corrección para dropdowns --- */
-.dropdown {
-  position: relative;
-  display: inline-block;
+.service-grid {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 4rem;
+    margin-top: 4rem;
 }
 
-.dropdown-content {
-  display: none;
-  position: absolute;
-  background-color: #4aa6b5;
-  min-width: 200px;
-  box-shadow: 0px 8px 16px rgba(0,0,0,0.2);
-  z-index: 1000;
-  border-radius: 8px;
-  padding: 10px 0;
+.service-item {
+    background: #f9f9f9;
+    border-radius: 2rem;
+    padding: 2rem;
+    width: 30rem;
+    box-shadow: 0 0 1rem rgba(0,0,0,0.1);
+    transition: transform 0.3s ease;
+    cursor: pointer;
 }
 
-.dropdown-content a {
-  display: block;
-  color: white;
-  padding: 12px 16px;
-  text-decoration: none;
-  font-size: 2rem;
-  border-bottom: 1px solid rgba(255,255,255,0.1);
+.service-item:hover {
+    transform: translateY(-10px);
 }
 
-.dropdown-content a:last-child {
-  border-bottom: none;
+.service-item img {
+    width: 100%;
+    height: 20rem;
+    object-fit: cover;
+    border-radius: 1.5rem;
+    margin-bottom: 2rem;
 }
 
-.dropdown-content a:hover {
-  background-color: #3b8c9a;
+.service-item .btn {
+    background-color: #df9d40;
+    color: #fff;
+    padding: 1rem 2rem;
+    border-radius: 1rem;
+    font-size: 2rem;
+    margin-top: 1rem;
+    display: inline-block;
 }
 
-/* Mostrar dropdown al hacer clic */
-.dropdown:hover .dropdown-content,
-.dropdown-content.show {
-  display: block;
-}
-
-/* Para dispositivos móviles */
-@media (max-width: 991px) {
-  .dropdown-content {
-    position: static;
-    box-shadow: none;
-    background-color: transparent;
-    display: none;
-  }
-  
-  .dropdown-content a {
-    color: #c62c38;
-    padding: 15px 20px;
-    font-size: 2.5rem;
-  }
-  
-  .navbar.active .dropdown-content {
-    display: block;
-  }
-}
-
+/* ===== SECCIÓN IMAGEN PARALLAX ===== */
 .image {
-    height: 300px;
-    background-image: url(../multimedia/pet-parasites.jpg); /* Asegúrate de que el archivo exista */
+    height: 40rem;
+    background-image: url(../multimedia/pet-parasites.jpg);
     background-repeat: no-repeat;
     background-size: cover;
     background-position: center;
-    background-attachment: fixed; /* Clave para el efecto parallax */
+    background-attachment: fixed;
+    padding: 0;
+}
+
+/* ===== SECCIÓN CONTACTO ===== */
+.contact {
+    background: #f9f9f9;
+}
+
+.contact h3 {
+    font-size: 3rem;
+    font-weight: 500;
+    margin-bottom: 2rem;
+}
+
+.contact-form {
+    background: white;
+    padding: 3rem;
+    border-radius: 2rem;
+    box-shadow: 0 0 1.5rem rgba(0,0,0,0.1);
+    max-width: 60rem;
+    margin: 4rem auto;
+}
+
+.contact-form label {
+    display: block;
+    margin: 1.5rem 0 0.5rem;
+    font-size: 1.8rem;
+    color: #446468;
+    text-align: left;
+}
+
+.contact-form input,
+.contact-form textarea {
+    width: 100%;
+    padding: 1.2rem;
+    margin-bottom: 1.5rem;
+    border: 1px solid #ccc;
+    border-radius: 1rem;
+    font-size: 1.6rem;
+    font-family: "Oswald", sans-serif;
+}
+
+.contact-form button {
+    background-color: #4aa6b5;
+    color: white;
+    padding: 1.2rem 2.5rem;
+    border: none;
+    border-radius: 1rem;
+    font-size: 2rem;
+    cursor: pointer;
+    margin-top: 1rem;
+    width: 100%;
+    transition: background-color 0.3s ease;
+}
+
+.contact-form button:hover {
+    background-color: #3b8c9a;
+}
+
+/* ===== SECCIÓN ADOPCIÓN ===== */
+.adopcion .title {
+    color: #4aa6b5;
+    margin-bottom: 4rem;
 }
 
 .adopcion-opciones {
-    margin: 30px 0;
+    margin: 4rem 0;
     text-align: center;
 }
 
 .adopcion-opciones button {
-    padding: 16px 35px;
-    margin: 0 20px;
+    padding: 1.5rem 3rem;
+    margin: 0 2rem;
     background-color: #4aa6b5;
     border: none;
-    border-radius: 8px;
+    border-radius: 1rem;
     color: white;
-    font-size: 1.2rem;
+    font-size: 2rem;
     font-weight: bold;
     cursor: pointer;
     transition: background-color 0.3s ease;
@@ -791,127 +428,504 @@ p{
 
 .adopcion-opciones button:hover {
     background-color: #3b8c9a;
+    transform: translateY(-3px);
 }
 
 .mascotas-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
-    gap: 40px;
-    margin-top: 40px;
-    padding: 0 40px;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 4rem;
+    margin-top: 4rem;
 }
 
 .mascota-card {
-    background-color: #f9f9f9;
-    padding: 30px;
-    border-radius: 14px;
-    box-shadow: 0 6px 12px rgba(0,0,0,0.1);
-    text-align: center;
+    background: #f9f9f9;
+    border-radius: 2rem;
+    padding: 2rem;
+    width: 35rem;
+    box-shadow: 0 0 1.5rem rgba(0,0,0,0.1);
     transition: transform 0.3s ease;
-    font-size: 1.1rem;
+    text-align: center;
 }
 
 .mascota-card:hover {
-    transform: translateY(-8px);
+    transform: translateY(-10px);
 }
 
 .mascota-card img {
     width: 100%;
-    height: 280px;
+    height: 25rem;
     object-fit: cover;
-    border-radius: 10px;
-    margin-bottom: 20px;
+    border-radius: 1.5rem;
+    margin-bottom: 2rem;
+    border: 3px solid #df9d40;
 }
 
 .mascota-card h3 {
-    margin: 15px 0 10px;
+    margin: 1rem 0;
     color: #446468;
-    font-size: 1.5rem;
+    font-size: 2.5rem;
 }
 
 .mascota-card p {
-    font-size: 1.1rem;
-    color: #444;
-    margin-bottom: 20px;
+    font-size: 1.8rem;
+    color: #666;
+    margin-bottom: 2rem;
+    line-height: 1.6;
 }
 
 .mascota-card .btn {
     background-color: #df9d40;
     color: white;
-    font-size: 1.1rem;
-    padding: 12px 24px;
+    font-size: 1.8rem;
+    padding: 1rem 2.5rem;
     border: none;
-    border-radius: 8px;
+    border-radius: 1rem;
     cursor: pointer;
+    transition: background-color 0.3s ease;
+    display: inline-block;
 }
 
 .mascota-card .btn:hover {
     background-color: #aa7a46;
+    transform: translateY(-3px);
 }
 
+.formulario-registro {
+    background: white;
+    padding: 3rem;
+    border-radius: 2rem;
+    box-shadow: 0 0 1.5rem rgba(0,0,0,0.1);
+    max-width: 60rem;
+    margin: 0 auto;
+}
 
+.formulario-registro label {
+    display: block;
+    margin: 1.5rem 0 0.5rem;
+    font-size: 1.8rem;
+    color: #446468;
+    text-align: left;
+}
 
+.formulario-registro input,
+.formulario-registro textarea {
+    width: 100%;
+    padding: 1.2rem;
+    margin-bottom: 1.5rem;
+    border: 1px solid #ccc;
+    border-radius: 1rem;
+    font-size: 1.6rem;
+    font-family: "Oswald", sans-serif;
+}
 
+.formulario-registro button[type="submit"] {
+    background-color: #4aa6b5;
+    color: white;
+    padding: 1.2rem 2.5rem;
+    border: none;
+    border-radius: 1rem;
+    font-size: 2rem;
+    cursor: pointer;
+    margin-top: 1rem;
+    width: 100%;
+    transition: background-color 0.3s ease;
+}
 
+.formulario-registro button[type="submit"]:hover {
+    background-color: #3b8c9a;
+}
 
-@media(max-width:991px){
+/* ===== SECCIÓN DONACIONES ===== */
+.donaciones {
+    padding: 12rem 5% 6rem;
+    text-align: center;
+    background: #f9f9f9;
+    min-height: 100vh;
+}
 
-    html{
+.donaciones h2 {
+    color: #4aa6b5;
+    font-size: 3.5rem;
+    margin: 3rem 0 2rem;
+}
+
+.donaciones form {
+    background: white;
+    padding: 2.5rem;
+    border-radius: 2rem;
+    box-shadow: 0 0 1.5rem rgba(0,0,0,0.1);
+    max-width: 50rem;
+    margin: 0 auto 4rem;
+}
+
+.donaciones input {
+    width: 100%;
+    padding: 1.2rem;
+    margin: 1rem 0;
+    border: 1px solid #ccc;
+    border-radius: 1rem;
+    font-size: 1.6rem;
+}
+
+.donaciones button {
+    background-color: #df9d40;
+    color: white;
+    padding: 1.2rem 2.5rem;
+    border: none;
+    border-radius: 1rem;
+    font-size: 1.8rem;
+    cursor: pointer;
+    margin-top: 1rem;
+    transition: background-color 0.3s ease;
+}
+
+.donaciones button:hover {
+    background-color: #aa7a46;
+}
+
+/* ===== SECCIÓN MISIÓN Y VISIÓN ===== */
+.mision-vision {
+    padding: 12rem 5% 6rem;
+    text-align: center;
+    background: #f9f9f9;
+    min-height: 100vh;
+}
+
+.mision-vision h2 {
+    color: #4aa6b5;
+    font-size: 4rem;
+    margin-bottom: 2rem;
+    text-transform: uppercase;
+}
+
+.mision-vision p {
+    font-size: 2.2rem;
+    color: #446468;
+    line-height: 1.6;
+    max-width: 80rem;
+    margin: 0 auto 6rem;
+    padding: 3rem;
+    background: white;
+    border-radius: 2rem;
+    box-shadow: 0 0 1.5rem rgba(0,0,0,0.1);
+    border-left: 5px solid #df9d40;
+}
+
+/* ===== SECCIÓN REPORTES ===== */
+.reportes-container {
+    padding: 12rem 5% 6rem;
+    background: #f9f9f9;
+    min-height: 100vh;
+}
+
+.reportes-container h2 {
+    color: #4aa6b5;
+    font-size: 4rem;
+    margin-bottom: 4rem;
+    text-align: center;
+}
+
+.reporte-form {
+    background: white;
+    padding: 3rem;
+    border-radius: 2rem;
+    box-shadow: 0 0 1.5rem rgba(0,0,0,0.1);
+    margin-bottom: 4rem;
+    max-width: 80rem;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.reporte-form label {
+    display: block;
+    margin: 1.5rem 0 0.5rem;
+    font-size: 1.8rem;
+    color: #446468;
+    text-align: left;
+}
+
+.reporte-form input,
+.reporte-form select,
+.reporte-form textarea {
+    width: 100%;
+    padding: 1.2rem;
+    margin-bottom: 1.5rem;
+    border: 1px solid #ccc;
+    border-radius: 1rem;
+    font-size: 1.6rem;
+    font-family: "Oswald", sans-serif;
+}
+
+.reporte-form button {
+    background-color: #df9d40;
+    color: white;
+    padding: 1.2rem 2.5rem;
+    border: none;
+    border-radius: 1rem;
+    font-size: 1.8rem;
+    cursor: pointer;
+    margin-top: 1rem;
+    width: 100%;
+    transition: background-color 0.3s ease;
+}
+
+.reporte-form button:hover {
+    background-color: #aa7a46;
+}
+
+/* ===== SECCIÓN EVENTOS ===== */
+.eventos {
+    padding: 12rem 5% 6rem;
+    text-align: center;
+    background: #f9f9f9;
+    min-height: 100vh;
+}
+
+.eventos .title {
+    color: #4aa6b5;
+    margin-bottom: 6rem;
+    font-size: 6rem;
+}
+
+.eventos-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+    gap: 4rem;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.evento-card {
+    background: white;
+    border-radius: 2rem;
+    padding: 3rem;
+    box-shadow: 0 0 2rem rgba(0,0,0,0.1);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    text-align: left;
+    position: relative;
+    overflow: hidden;
+}
+
+.evento-card:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 15px 30px rgba(0,0,0,0.15);
+}
+
+.evento-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 8px;
+    background: linear-gradient(90deg, #4aa6b5, #df9d40);
+}
+
+.evento-fecha {
+    background: #4aa6b5;
+    color: white;
+    display: inline-block;
+    padding: 0.8rem 1.5rem;
+    border-radius: 1.5rem;
+    font-size: 1.6rem;
+    margin-bottom: 2rem;
+    font-weight: bold;
+}
+
+.evento-card h3 {
+    color: #446468;
+    font-size: 2.5rem;
+    margin-bottom: 1.5rem;
+    font-weight: 600;
+}
+
+.evento-card p {
+    color: #666;
+    font-size: 1.8rem;
+    margin-bottom: 2.5rem;
+    line-height: 1.6;
+}
+
+.evento-info {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    margin-bottom: 2.5rem;
+}
+
+.evento-info div {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    font-size: 1.6rem;
+    color: #555;
+}
+
+.evento-info i {
+    color: #df9d40;
+    font-size: 1.8rem;
+    width: 2rem;
+}
+
+.evento-btn {
+    background: #df9d40;
+    color: white;
+    padding: 1.2rem 2.5rem;
+    border: none;
+    border-radius: 1rem;
+    font-size: 1.8rem;
+    cursor: pointer;
+    transition: background 0.3s ease;
+    display: inline-block;
+    text-align: center;
+    width: 100%;
+}
+
+.evento-btn:hover {
+    background: #aa7a46;
+}
+
+/* ===== FOOTER ===== */
+.footer {
+    margin-top: 5rem;
+    padding: 5rem;
+    background-color: #4aa6b5;
+    color: #fff;
+    font-size: 2.5rem;
+}
+
+/* ===== MEDIA QUERIES ===== */
+@media (max-width: 991px) {
+    html {
         font-size: 55%;
     }
 
-
-    .header{
+    .header {
         padding: 1.5rem 2rem;
     }
-    section{
-        padding: 2rem;
-    }
 
-}
-@media(max-width:991px){
-    
-    #menu-btn{
+    #menu-btn {
         display: inline-block;
     }
 
-    .header .navbar{
+    .header .navbar {
         position: absolute;
-        top: 100%;right: -100%;
-        background: #4aa6b5 ;
+        top: 100%;
+        right: -100%;
+        background: #4aa6b5;
         width: 30rem;
-        height: calc(100vh-9.5rem);
+        height: calc(100vh - 9rem);
+        transition: right 0.3s ease;
     }
 
-    .header .navbar.active{
-       right: 0; 
+    .header .navbar.active {
+        right: 0;
     }
 
-    .header .navbar a{
+    .header .navbar a {
         display: block;
         margin: 1.5rem;
-        padding: 4rem;
-        font-size: 5rem;
+        padding: 2rem;
+        font-size: 2.5rem;
     }
-    .home{
-        background-position: left;
-        justify-content: center
+
+    .dropdown-content {
+        position: static;
+        box-shadow: none;
+        background-color: transparent;
+        display: none;
     }
-    .home .content h1{
-        font-size: 12rem;
+
+    .dropdown-content a {
+        color: #c62c38;
+        padding: 1.5rem 2rem;
+        font-size: 2.2rem;
     }
-    .home .content p{
-        font-size: 3rem;
+
+    .navbar.active .dropdown-content {
+        display: block;
+    }
+
+    .carousel-caption h2 {
+        font-size: 3.5rem;
+    }
+
+    .carousel-caption p {
+        font-size: 2rem;
+    }
+
+    .carousel-caption .btn {
+        font-size: 1.6rem;
+        padding: 1rem 2rem;
     }
 }
-@media(max-width:450px){
 
-    html{
+@media (max-width: 768px) {
+    .title {
+        font-size: 4.5rem;
+    }
+
+    .carousel-caption h2 {
+        font-size: 2.8rem;
+    }
+
+    .carousel-caption p {
+        font-size: 1.6rem;
+    }
+
+    .carousel-caption {
+        bottom: 15%;
+    }
+
+    .carousel-btn {
+        padding: 1rem;
+        font-size: 1.5rem;
+    }
+
+    .eventos-container {
+        grid-template-columns: 1fr;
+    }
+
+    .evento-card {
+        padding: 2rem;
+    }
+
+    .adopcion-opciones {
+        display: flex;
+        flex-direction: column;
+        gap: 2rem;
+    }
+
+    .adopcion-opciones button {
+        margin: 0;
+    }
+}
+
+@media (max-width: 450px) {
+    html {
         font-size: 50%;
     }
 
+    .carousel-caption h2 {
+        font-size: 2.2rem;
+    }
 
+    .carousel-caption p {
+        font-size: 1.4rem;
+    }
 
+    .carousel-caption .btn {
+        font-size: 1.4rem;
+        padding: 0.8rem 1.5rem;
+    }
+
+    .carousel-indicators {
+        bottom: 1rem;
+    }
+
+    .header .logo img {
+        height: 4.5rem;
+    }
 }
-
-

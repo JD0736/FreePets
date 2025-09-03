@@ -202,4 +202,157 @@ document.addEventListener('DOMContentLoaded', function() {
       });
     }
   });
+  // --- Funciones para popups ---
+function mostrarPopup(mensaje, tipo) {
+    const popup = document.getElementById('popup');
+    const overlay = document.getElementById('overlay');
+    const popupMensaje = document.getElementById('popup-mensaje');
+    const popupTitulo = document.getElementById('popup-titulo');
+    const popupBoton = document.getElementById('popup-boton');
+    
+    if (popup && popupMensaje && popupTitulo && popupBoton) {
+        popupMensaje.textContent = mensaje;
+        popupTitulo.textContent = tipo === 'exito' ? '¡Éxito!' : 'Error';
+        popup.className = `popup ${tipo}`;
+        popupBoton.className = `popup-btn ${tipo}`;
+        
+        popup.style.display = 'block';
+        overlay.style.display = 'block';
+    }
+}
+
+function cerrarPopup() {
+    const popup = document.getElementById('popup');
+    const overlay = document.getElementById('overlay');
+    
+    if (popup && overlay) {
+        popup.style.display = 'none';
+        overlay.style.display = 'none';
+    }
+}
+
+// Cerrar popup al hacer clic fuera
+document.addEventListener('click', function(e) {
+    const popup = document.getElementById('popup');
+    const overlay = document.getElementById('overlay');
+    
+    if (e.target === overlay) {
+        cerrarPopup();
+    }
+});
+
+// Cerrar popup con tecla ESC
+document.addEventListener('keydown', function(e) {
+    if (e.key === 'Escape') {
+        cerrarPopup();
+    }
+});
+
+// --- Sistema de tabs para login/registro (mejorado) ---
+function inicializarTabs() {
+    const tabs = document.querySelectorAll(".tab");
+    const contents = document.querySelectorAll(".form-content");
+
+    if (tabs.length > 0) {
+        tabs.forEach(tab => {
+            tab.addEventListener("click", () => {
+                // Quitar clase active de todas las pestañas
+                tabs.forEach(t => t.classList.remove("active"));
+                
+                // Añadir clase active a la pestaña clickeada
+                tab.classList.add("active");
+                
+                // Ocultar todos los contenidos
+                contents.forEach(c => c.classList.remove("active"));
+                
+                // Mostrar el contenido correspondiente
+                const target = tab.getAttribute('data-target');
+                document.getElementById(target).classList.add('active');
+            });
+        });
+    }
+}
+
+// --- Validación de formularios ---
+function validarFormularioLogin(form) {
+    const email = form.querySelector('input[type="email"]');
+    const password = form.querySelector('input[type="password"]');
+    
+    if (!email.value || !password.value) {
+        mostrarPopup('Por favor, complete todos los campos', 'error');
+        return false;
+    }
+    
+    if (!validarEmail(email.value)) {
+        mostrarPopup('Por favor, ingrese un email válido', 'error');
+        return false;
+    }
+    
+    return true;
+}
+
+function validarFormularioRegistro(form) {
+    const nombre = form.querySelector('input[name="nombre"]');
+    const email = form.querySelector('input[type="email"]');
+    const password = form.querySelector('input[type="password"]');
+    const tipoUsuario = form.querySelector('select[name="tipo_usuario"]');
+    
+    if (!nombre.value || !email.value || !password.value || !tipoUsuario.value) {
+        mostrarPopup('Por favor, complete todos los campos', 'error');
+        return false;
+    }
+    
+    if (!validarEmail(email.value)) {
+        mostrarPopup('Por favor, ingrese un email válido', 'error');
+        return false;
+    }
+    
+    if (password.value.length < 6) {
+        mostrarPopup('La contraseña debe tener al menos 6 caracteres', 'error');
+        return false;
+    }
+    
+    return true;
+}
+
+function validarEmail(email) {
+    const re = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    return re.test(email);
+}
+
+// Inicializar cuando el DOM esté listo
+document.addEventListener('DOMContentLoaded', function() {
+    inicializarTabs();
+    
+    // Agregar validación a formularios
+    const loginForm = document.querySelector('form[action="login.php"]');
+    const registroForm = document.querySelector('form[action="procesar_registro.php"]');
+    
+    if (loginForm) {
+        loginForm.addEventListener('submit', function(e) {
+            if (!validarFormularioLogin(this)) {
+                e.preventDefault();
+            }
+        });
+    }
+    
+    if (registroForm) {
+        registroForm.addEventListener('submit', function(e) {
+            if (!validarFormularioRegistro(this)) {
+                e.preventDefault();
+            }
+        });
+    }
+    
+    // Mostrar popup automáticamente si hay un mensaje en la URL
+    const urlParams = new URLSearchParams(window.location.search);
+    const mensaje = urlParams.get('mensaje');
+    const tipo = urlParams.get('tipo');
+    
+    if (mensaje && tipo) {
+        mostrarPopup(decodeURIComponent(mensaje), tipo);
+    }
+});
+
+
 });

@@ -7,7 +7,7 @@
 
 body {
   font-family: "Oswald", Arial, sans-serif;
-  background: linear-gradient(135deg, #004aad, #008060);
+  background: linear-gradient(135deg, #4aa6b5, #df9d40);
   height: 100vh;
   display: flex;
   justify-content: center;
@@ -18,11 +18,11 @@ body {
 .form-container {
   background: #fff;
   padding: 25px 20px;
-  border-radius: 12px;
-  border: 2px solid #004aad;
-  box-shadow: 0 6px 18px rgba(0,0,0,0.2);
+  border-radius: 15px;
+  border: 2px solid #4aa6b5;
+  box-shadow: 0 10px 25px rgba(0,0,0,0.2);
   width: 100%;
-  max-width: 420px;
+  max-width: 450px;
   animation: fadeIn 0.8s ease;
 }
 
@@ -31,22 +31,27 @@ body {
   display: flex;
   justify-content: space-around;
   margin-bottom: 20px;
-  border-bottom: 2px solid #ccc;
+  border-bottom: 2px solid #ddd;
 }
 
 .tab {
   flex: 1;
   text-align: center;
-  padding: 10px;
+  padding: 12px;
   cursor: pointer;
   font-weight: bold;
-  color: #444;
-  transition: color 0.3s, border-bottom 0.3s;
+  color: #446468;
+  transition: all 0.3s ease;
+  font-size: 18px;
 }
 
 .tab.active {
-  color: #004aad;
-  border-bottom: 2px solid #004aad;
+  color: #4aa6b5;
+  border-bottom: 3px solid #4aa6b5;
+}
+
+.tab:hover {
+  color: #df9d40;
 }
 
 /* Formularios */
@@ -60,53 +65,60 @@ body {
 
 .form-content h2 {
   text-align: center;
-  margin-bottom: 15px;
-  color: #004aad;
+  margin-bottom: 20px;
+  color: #4aa6b5;
+  font-size: 28px;
+  font-weight: 600;
 }
 
 .input-group {
   position: relative;
-  margin-bottom: 15px;
+  margin-bottom: 20px;
 }
 
 .input-group input,
 .input-group select {
   width: 100%;
-  padding: 12px 40px 12px 12px;
-  border: 1px solid #ccc;
+  padding: 14px 45px 14px 15px;
+  border: 2px solid #ddd;
   border-radius: 8px;
-  font-size: 15px;
+  font-size: 16px;
   transition: border-color 0.3s;
+  font-family: "Oswald", sans-serif;
 }
 
 .input-group input:focus,
 .input-group select:focus {
-  border-color: #004aad;
+  border-color: #4aa6b5;
   outline: none;
 }
 
 .input-group i {
   position: absolute;
-  right: 12px;
+  right: 15px;
   top: 50%;
   transform: translateY(-50%);
   color: #888;
+  font-size: 18px;
 }
 
 .btn-submit {
   width: 100%;
-  padding: 12px;
-  background-color: #008060;
+  padding: 15px;
+  background-color: #4aa6b5;
   color: #fff;
   border: none;
   border-radius: 8px;
   font-weight: bold;
   cursor: pointer;
+  font-size: 18px;
   transition: background-color 0.3s ease, transform 0.1s ease;
+  font-family: "Oswald", sans-serif;
 }
 
 .btn-submit:hover {
-  background-color: #00694e;
+  background-color: #3b8c9a;
+  transform: translateY(-2px);
 }
 
 .btn-submit:active {
@@ -114,18 +126,20 @@ body {
 }
 
 .form-links {
-  margin-top: 10px;
+  margin-top: 15px;
   text-align: center;
-  font-size: 14px;
+  font-size: 16px;
 }
 
 .form-links a {
-  color: #004aad;
+  color: #4aa6b5;
   text-decoration: none;
   font-weight: bold;
+  transition: color 0.3s ease;
 }
 
 .form-links a:hover {
+  color: #df9d40;
   text-decoration: underline;
 }
 
@@ -139,7 +153,7 @@ body {
   background: white;
   padding: 30px;
   border-radius: 15px;
-  box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+  box-shadow: 0 15px 35px rgba(0,0,0,0.3);
   z-index: 1000;
   text-align: center;
   min-width: 320px;
@@ -160,6 +174,7 @@ body {
   color: #333;
   font-size: 24px;
   margin-bottom: 15px;
+  font-weight: 600;
 }
 
 .popup p {
@@ -170,7 +185,7 @@ body {
 }
 
 .popup-btn {
-  background: #4CAF50;
+  background: #4aa6b5;
   color: white;
   border: none;
   padding: 12px 25px;
@@ -179,16 +194,25 @@ body {
   font-size: 16px;
   font-weight: bold;
   margin-top: 15px;
-  transition: background 0.3s ease;
+  transition: all 0.3s ease;
+  font-family: "Oswald", sans-serif;
+}
+
+.popup-btn:hover {
+  background: #3b8c9a;
+  transform: translateY(-2px);
+}
+
+.popup-btn:active {
+  transform: scale(0.98);
 }
 
 .popup-btn.error {
   background: #F44336;
 }
 
-.popup-btn:hover {
-  opacity: 0.9;
-  transform: translateY(-2px);
+.popup-btn.error:hover {
+  background: #d32f2f;
 }
 
 .overlay {

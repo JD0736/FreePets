@@ -344,4 +344,70 @@ document.addEventListener('DOMContentLoaded', function() {
     }
 });
 
+        // Validación de contraseña en tiempo real
+        document.addEventListener('DOMContentLoaded', function() {
+            const nuevaPassword = document.getElementById('nueva_password');
+            const confirmarPassword = document.getElementById('confirmar_password');
+            const strengthBar = document.getElementById('password-strength');
+            const strengthFeedback = document.getElementById('password-feedback');
+            
+            if (nuevaPassword) {
+                nuevaPassword.addEventListener('input', function() {
+                    const password = this.value;
+                    let strength = 0;
+                    let feedback = '';
+                    
+                    if (password.length >= 8) strength++;
+                    if (password.match(/[a-z]+/)) strength++;
+                    if (password.match(/[A-Z]+/)) strength++;
+                    if (password.match(/[0-9]+/)) strength++;
+                    if (password.match(/[!@#$%^&*(),.?":{}|<>]+/)) strength++;
+                    
+                    // Actualizar barra de fortaleza
+                    if (strengthBar) {
+                        strengthBar.className = 'password-strength';
+                        if (password.length > 0) {
+                            if (strength <= 2) {
+                                strengthBar.classList.add('strength-weak');
+                                feedback = 'Débil';
+                            } else if (strength <= 4) {
+                                strengthBar.classList.add('strength-medium');
+                                feedback = 'Media';
+                            } else {
+                                strengthBar.classList.add('strength-strong');
+                                feedback = 'Fuerte';
+                            }
+                        }
+                    }
+                    
+                    if (strengthFeedback) {
+                        strengthFeedback.textContent = feedback;
+                    }
+                });
+            }
+            
+            // Validar coincidencia de contraseñas
+            if (nuevaPassword && confirmarPassword) {
+                confirmarPassword.addEventListener('input', function() {
+                    if (nuevaPassword.value !== this.value) {
+                        this.style.borderColor = '#F44336';
+                    } else {
+                        this.style.borderColor = '#4CAF50';
+                    }
+                });
+            }
+            
+            // Ocultar alertas automáticamente
+            const alertas = document.querySelectorAll('.alert');
+            alertas.forEach(function(alerta) {
+                setTimeout(function() {
+                    alerta.style.opacity = '0';
+                    alerta.style.transition = 'opacity 0.5s ease';
+                    setTimeout(function() {
+                        alerta.style.display = 'none';
+                    }, 500);
+                }, 5000);
+            });
+        });
+
 });

@@ -44,7 +44,9 @@ $page_title = isset($page_title) ? $page_title : 'FreePets';
         </div>
 
         <a href="index.php#contact" <?php echo basename($_SERVER['PHP_SELF']) == 'index.php' && isset($_GET['contact']) ? 'class="active"' : ''; ?>>Contacto</a>
-        
+        <?php if (isset($_SESSION['tipo_usuario']) && $_SESSION['tipo_usuario'] === 'admin'): ?>
+    <li><a href="admin_usuarios.php">Administrar Usuarios</a></li>
+<?php endif; ?>
         <!-- Enlace de Login/Logout y Mi Perfil -->
         <?php if (isset($_SESSION['usuario_id'])): ?>
             <a href="perfil.php" <?php echo basename($_SERVER['PHP_SELF']) == 'perfil.php' ? 'class="active"' : ''; ?>>Mi Perfil</a>

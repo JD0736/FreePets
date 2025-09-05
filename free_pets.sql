@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 5.2.0
+-- version 5.2.1
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 11-07-2025 a las 21:58:52
--- Versión del servidor: 10.4.25-MariaDB
--- Versión de PHP: 8.1.10
+-- Tiempo de generación: 05-09-2025 a las 06:15:56
+-- Versión del servidor: 10.4.32-MariaDB
+-- Versión de PHP: 8.0.30
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -20,8 +20,72 @@ SET time_zone = "+00:00";
 --
 -- Base de datos: `free pets`
 --
-CREATE DATABASE IF NOT EXISTS `free pets` DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci;
-USE `free pets`;
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `contactos`
+--
+
+CREATE TABLE `contactos` (
+  `id_contacto` int(11) NOT NULL,
+  `nombre` varchar(100) NOT NULL,
+  `email` varchar(100) NOT NULL,
+  `telefono` varchar(20) DEFAULT NULL,
+  `mensaje` text NOT NULL,
+  `fecha_contacto` timestamp NOT NULL DEFAULT current_timestamp(),
+  `leido` tinyint(1) DEFAULT 0
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Volcado de datos para la tabla `contactos`
+--
+
+INSERT INTO `contactos` (`id_contacto`, `nombre`, `email`, `telefono`, `mensaje`, `fecha_contacto`, `leido`) VALUES
+(1, 'hhh', 'hhh@gmail.com', '33333222', 'hdhdhdhdhdhd', '2025-09-03 19:51:34', 0);
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `donaciones`
+--
+
+CREATE TABLE `donaciones` (
+  `id_donacion` int(11) NOT NULL,
+  `tipo_donacion` enum('juguetes','comida','dinero') NOT NULL,
+  `tipo_articulo` varchar(100) DEFAULT NULL,
+  `cantidad` decimal(10,2) DEFAULT NULL,
+  `monto` decimal(10,2) DEFAULT NULL,
+  `fecha_donacion` timestamp NOT NULL DEFAULT current_timestamp(),
+  `id_usuario` int(11) DEFAULT NULL,
+  `estado` enum('pendiente','recibida','entregada') DEFAULT 'pendiente'
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Volcado de datos para la tabla `donaciones`
+--
+
+INSERT INTO `donaciones` (`id_donacion`, `tipo_donacion`, `tipo_articulo`, `cantidad`, `monto`, `fecha_donacion`, `id_usuario`, `estado`) VALUES
+(1, 'dinero', 'Donación monetaria', 1.00, 2000.00, '2025-09-04 16:15:31', 3, 'pendiente');
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `eventos`
+--
+
+CREATE TABLE `eventos` (
+  `id_evento` int(11) NOT NULL,
+  `titulo` varchar(255) NOT NULL,
+  `fecha` date NOT NULL,
+  `descripcion` text NOT NULL,
+  `lugar` varchar(255) NOT NULL,
+  `hora_inicio` time DEFAULT NULL,
+  `hora_fin` time DEFAULT NULL,
+  `informacion_adicional` text DEFAULT NULL,
+  `imagen_url` varchar(255) DEFAULT NULL,
+  `estado` enum('activo','cancelado','completado') DEFAULT 'activo'
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
 
@@ -40,7 +104,21 @@ CREATE TABLE `mascotas` (
   `estado` enum('disponible','adoptado') DEFAULT 'disponible',
   `fecha_ingreso` date DEFAULT NULL,
   `imagen_url` varchar(255) DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `participantes_eventos`
+--
+
+CREATE TABLE `participantes_eventos` (
+  `id_participacion` int(11) NOT NULL,
+  `id_evento` int(11) NOT NULL,
+  `id_usuario` int(11) NOT NULL,
+  `fecha_registro` timestamp NOT NULL DEFAULT current_timestamp(),
+  `asistencia` enum('confirmada','pendiente','cancelada') DEFAULT 'pendiente'
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
 
@@ -55,46 +133,7 @@ CREATE TABLE `refugios` (
   `telefono` varchar(20) DEFAULT NULL,
   `correo` varchar(100) DEFAULT NULL,
   `descripcion` text DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
-
--- --------------------------------------------------------
-
---
--- Estructura de tabla para la tabla `solicitudes_adopcion`
---
-
-CREATE TABLE `solicitudes_adopcion` (
-  `id_solicitud` int(11) NOT NULL,
-  `id_usuario` int(11) DEFAULT NULL,
-  `id_mascota` int(11) DEFAULT NULL,
-  `fecha_solicitud` date DEFAULT curdate(),
-  `estado` enum('pendiente','aprobada','rechazada') DEFAULT 'pendiente'
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
-
--- --------------------------------------------------------
-
---
--- Estructura de tabla para la tabla `usuarios`
---
-
-CREATE TABLE `usuarios` (
-  `id_usuario` int(11) NOT NULL,
-  `nombre` varchar(100) NOT NULL,
-  `correo` varchar(100) NOT NULL,
-  `contraseña` varchar(255) NOT NULL,
-  `tipo_usuario` enum('adoptante','admin') DEFAULT 'adoptante',
-  `fecha_registro` timestamp NOT NULL DEFAULT current_timestamp(),
-  `telefono` varchar(20) DEFAULT NULL,
-  `direccion` text DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
-
---
--- Volcado de datos para la tabla `usuarios`
---
-
-INSERT INTO `usuarios` (`id_usuario`, `nombre`, `correo`, `contraseña`, `tipo_usuario`, `fecha_registro`, `telefono`, `direccion`) VALUES
-(1, 'Juan Pérez', 'juan@example.com', '$2y$10$QQrdCBte1JeYPSjdD.ePW.RFtKoruQPwb5G7fIsJTt3B4MIkZ8wIa', 'admin', '2025-07-10 21:21:29', NULL, NULL),
-(2, 'Juan Díazz', 'juan@gmail.com', '$2y$10$Q9mjy3jFvsGpOoSglpOYjuAqNBl3EMdgXtulh0.jC8dvessKa0Yt6', 'adoptante', '2025-07-10 21:22:55', NULL, NULL);
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
 
@@ -114,7 +153,7 @@ CREATE TABLE `reportes_mascotas` (
   `fecha_reporte` timestamp NOT NULL DEFAULT current_timestamp(),
   `id_usuario` int(11) DEFAULT NULL,
   `estado` enum('activo','resuelto') DEFAULT 'activo'
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
 
@@ -132,61 +171,71 @@ CREATE TABLE `situaciones_precarias` (
   `fecha_reporte` timestamp NOT NULL DEFAULT current_timestamp(),
   `id_usuario` int(11) DEFAULT NULL,
   `estado` enum('activo','en revision','resuelto') DEFAULT 'activo'
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
 
 --
--- Estructura de tabla para la tabla `donaciones`
+-- Estructura de tabla para la tabla `solicitudes_adopcion`
 --
 
-CREATE TABLE `donaciones` (
-  `id_donacion` int(11) NOT NULL,
-  `tipo_donacion` enum('juguetes','comida','dinero') NOT NULL,
-  `tipo_articulo` varchar(100) DEFAULT NULL,
-  `cantidad` decimal(10,2) DEFAULT NULL,
-  `monto` decimal(10,2) DEFAULT NULL,
-  `fecha_donacion` timestamp NOT NULL DEFAULT current_timestamp(),
+CREATE TABLE `solicitudes_adopcion` (
+  `id_solicitud` int(11) NOT NULL,
   `id_usuario` int(11) DEFAULT NULL,
-  `estado` enum('pendiente','recibida','entregada') DEFAULT 'pendiente'
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+  `id_mascota` int(11) DEFAULT NULL,
+  `fecha_solicitud` date DEFAULT curdate(),
+  `estado` enum('pendiente','aprobada','rechazada') DEFAULT 'pendiente'
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
 
 --
--- Estructura de tabla para la tabla `eventos`
+-- Estructura de tabla para la tabla `usuarios`
 --
 
-CREATE TABLE `eventos` (
-  `id_evento` int(11) NOT NULL,
-  `titulo` varchar(255) NOT NULL,
-  `fecha` date NOT NULL,
-  `descripcion` text NOT NULL,
-  `lugar` varchar(255) NOT NULL,
-  `hora_inicio` time DEFAULT NULL,
-  `hora_fin` time DEFAULT NULL,
-  `informacion_adicional` text DEFAULT NULL,
-  `imagen_url` varchar(255) DEFAULT NULL,
-  `estado` enum('activo','cancelado','completado') DEFAULT 'activo'
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
-
--- --------------------------------------------------------
-
---
--- Estructura de tabla para la tabla `participantes_eventos`
---
-
-CREATE TABLE `participantes_eventos` (
-  `id_participacion` int(11) NOT NULL,
-  `id_evento` int(11) NOT NULL,
+CREATE TABLE `usuarios` (
   `id_usuario` int(11) NOT NULL,
+  `nombre` varchar(100) NOT NULL,
+  `correo` varchar(100) NOT NULL,
+  `contraseña` varchar(255) NOT NULL,
+  `tipo_usuario` enum('adoptante','admin') DEFAULT 'adoptante',
   `fecha_registro` timestamp NOT NULL DEFAULT current_timestamp(),
-  `asistencia` enum('confirmada','pendiente','cancelada') DEFAULT 'pendiente'
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+  `telefono` varchar(20) DEFAULT NULL,
+  `direccion` text DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Volcado de datos para la tabla `usuarios`
+--
+
+INSERT INTO `usuarios` (`id_usuario`, `nombre`, `correo`, `contraseña`, `tipo_usuario`, `fecha_registro`, `telefono`, `direccion`) VALUES
+(1, 'Juan Pérez', 'juan@example.com', '$2y$10$QQrdCBte1JeYPSjdD.ePW.RFtKoruQPwb5G7fIsJTt3B4MIkZ8wIa', 'admin', '2025-07-10 21:21:29', NULL, NULL),
+(2, 'Juan Díazz', 'juan@gmail.com', '$2y$10$Q9mjy3jFvsGpOoSglpOYjuAqNBl3EMdgXtulh0.jC8dvessKa0Yt6', 'adoptante', '2025-07-10 21:22:55', NULL, NULL),
+(3, 'hhh', 'hhh@gmail.com', '$2y$10$hGSuS5sLfRw/6iXSStWBS.3a.Eu8jsSrW4K0MyxDRCVwdZUck7Gsi', 'adoptante', '2025-09-03 19:19:05', NULL, NULL),
+(4, '444', '44@gmail.com', '$2y$10$O3kkTUOPkpK0z/3todAmrum.pm.6S3/0HMOEYQ6I8tvPfXNaBx.42', NULL, '2025-09-04 16:20:00', NULL, NULL);
 
 --
 -- Índices para tablas volcadas
 --
+
+--
+-- Indices de la tabla `contactos`
+--
+ALTER TABLE `contactos`
+  ADD PRIMARY KEY (`id_contacto`);
+
+--
+-- Indices de la tabla `donaciones`
+--
+ALTER TABLE `donaciones`
+  ADD PRIMARY KEY (`id_donacion`),
+  ADD KEY `id_usuario` (`id_usuario`);
+
+--
+-- Indices de la tabla `eventos`
+--
+ALTER TABLE `eventos`
+  ADD PRIMARY KEY (`id_evento`);
 
 --
 -- Indices de la tabla `mascotas`
@@ -195,10 +244,32 @@ ALTER TABLE `mascotas`
   ADD PRIMARY KEY (`id_mascota`);
 
 --
+-- Indices de la tabla `participantes_eventos`
+--
+ALTER TABLE `participantes_eventos`
+  ADD PRIMARY KEY (`id_participacion`),
+  ADD KEY `id_evento` (`id_evento`),
+  ADD KEY `id_usuario` (`id_usuario`);
+
+--
 -- Indices de la tabla `refugios`
 --
 ALTER TABLE `refugios`
   ADD PRIMARY KEY (`id_refugio`);
+
+--
+-- Indices de la tabla `reportes_mascotas`
+--
+ALTER TABLE `reportes_mascotas`
+  ADD PRIMARY KEY (`id_reporte`),
+  ADD KEY `id_usuario` (`id_usuario`);
+
+--
+-- Indices de la tabla `situaciones_precarias`
+--
+ALTER TABLE `situaciones_precarias`
+  ADD PRIMARY KEY (`id_situacion`),
+  ADD KEY `id_usuario` (`id_usuario`);
 
 --
 -- Indices de la tabla `solicitudes_adopcion`
@@ -216,43 +287,26 @@ ALTER TABLE `usuarios`
   ADD UNIQUE KEY `correo` (`correo`);
 
 --
--- Indices de la tabla `reportes_mascotas`
---
-ALTER TABLE `reportes_mascotas`
-  ADD PRIMARY KEY (`id_reporte`),
-  ADD KEY `id_usuario` (`id_usuario`);
-
---
--- Indices de la tabla `situaciones_precarias`
---
-ALTER TABLE `situaciones_precarias`
-  ADD PRIMARY KEY (`id_situacion`),
-  ADD KEY `id_usuario` (`id_usuario`);
-
---
--- Indices de la tabla `donaciones`
---
-ALTER TABLE `donaciones`
-  ADD PRIMARY KEY (`id_donacion`),
-  ADD KEY `id_usuario` (`id_usuario`);
-
---
--- Indices de la tabla `eventos`
---
-ALTER TABLE `eventos`
-  ADD PRIMARY KEY (`id_evento`);
-
---
--- Indices de la tabla `participantes_eventos`
---
-ALTER TABLE `participantes_eventos`
-  ADD PRIMARY KEY (`id_participacion`),
-  ADD KEY `id_evento` (`id_evento`),
-  ADD KEY `id_usuario` (`id_usuario`);
-
---
 -- AUTO_INCREMENT de las tablas volcadas
 --
+
+--
+-- AUTO_INCREMENT de la tabla `contactos`
+--
+ALTER TABLE `contactos`
+  MODIFY `id_contacto` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+
+--
+-- AUTO_INCREMENT de la tabla `donaciones`
+--
+ALTER TABLE `donaciones`
+  MODIFY `id_donacion` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+
+--
+-- AUTO_INCREMENT de la tabla `eventos`
+--
+ALTER TABLE `eventos`
+  MODIFY `id_evento` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT de la tabla `mascotas`
@@ -261,22 +315,16 @@ ALTER TABLE `mascotas`
   MODIFY `id_mascota` int(11) NOT NULL AUTO_INCREMENT;
 
 --
+-- AUTO_INCREMENT de la tabla `participantes_eventos`
+--
+ALTER TABLE `participantes_eventos`
+  MODIFY `id_participacion` int(11) NOT NULL AUTO_INCREMENT;
+
+--
 -- AUTO_INCREMENT de la tabla `refugios`
 --
 ALTER TABLE `refugios`
   MODIFY `id_refugio` int(11) NOT NULL AUTO_INCREMENT;
-
---
--- AUTO_INCREMENT de la tabla `solicitudes_adopcion`
---
-ALTER TABLE `solicitudes_adopcion`
-  MODIFY `id_solicitud` int(11) NOT NULL AUTO_INCREMENT;
-
---
--- AUTO_INCREMENT de la tabla `usuarios`
---
-ALTER TABLE `usuarios`
-  MODIFY `id_usuario` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT de la tabla `reportes_mascotas`
@@ -291,33 +339,33 @@ ALTER TABLE `situaciones_precarias`
   MODIFY `id_situacion` int(11) NOT NULL AUTO_INCREMENT;
 
 --
--- AUTO_INCREMENT de la tabla `donaciones`
+-- AUTO_INCREMENT de la tabla `solicitudes_adopcion`
 --
-ALTER TABLE `donaciones`
-  MODIFY `id_donacion` int(11) NOT NULL AUTO_INCREMENT;
+ALTER TABLE `solicitudes_adopcion`
+  MODIFY `id_solicitud` int(11) NOT NULL AUTO_INCREMENT;
 
 --
--- AUTO_INCREMENT de la tabla `eventos`
+-- AUTO_INCREMENT de la tabla `usuarios`
 --
-ALTER TABLE `eventos`
-  MODIFY `id_evento` int(11) NOT NULL AUTO_INCREMENT;
-
---
--- AUTO_INCREMENT de la tabla `participantes_eventos`
---
-ALTER TABLE `participantes_eventos`
-  MODIFY `id_participacion` int(11) NOT NULL AUTO_INCREMENT;
+ALTER TABLE `usuarios`
+  MODIFY `id_usuario` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- Restricciones para tablas volcadas
 --
 
 --
--- Filtros para la tabla `solicitudes_adopcion`
+-- Filtros para la tabla `donaciones`
 --
-ALTER TABLE `solicitudes_adopcion`
-  ADD CONSTRAINT `solicitudes_adopcion_ibfk_1` FOREIGN KEY (`id_usuario`) REFERENCES `usuarios` (`id_usuario`),
-  ADD CONSTRAINT `solicitudes_adopcion_ibfk_2` FOREIGN KEY (`id_mascota`) REFERENCES `mascotas` (`id_mascota`);
+ALTER TABLE `donaciones`
+  ADD CONSTRAINT `donaciones_ibfk_1` FOREIGN KEY (`id_usuario`) REFERENCES `usuarios` (`id_usuario`);
+
+--
+-- Filtros para la tabla `participantes_eventos`
+--
+ALTER TABLE `participantes_eventos`
+  ADD CONSTRAINT `participantes_eventos_ibfk_1` FOREIGN KEY (`id_evento`) REFERENCES `eventos` (`id_evento`),
+  ADD CONSTRAINT `participantes_eventos_ibfk_2` FOREIGN KEY (`id_usuario`) REFERENCES `usuarios` (`id_usuario`);
 
 --
 -- Filtros para la tabla `reportes_mascotas`
@@ -332,17 +380,11 @@ ALTER TABLE `situaciones_precarias`
   ADD CONSTRAINT `situaciones_precarias_ibfk_1` FOREIGN KEY (`id_usuario`) REFERENCES `usuarios` (`id_usuario`);
 
 --
--- Filtros para la tabla `donaciones`
+-- Filtros para la tabla `solicitudes_adopcion`
 --
-ALTER TABLE `donaciones`
-  ADD CONSTRAINT `donaciones_ibfk_1` FOREIGN KEY (`id_usuario`) REFERENCES `usuarios` (`id_usuario`);
-
---
--- Filtros para la tabla `participantes_eventos`
---
-ALTER TABLE `participantes_eventos`
-  ADD CONSTRAINT `participantes_eventos_ibfk_1` FOREIGN KEY (`id_evento`) REFERENCES `eventos` (`id_evento`),
-  ADD CONSTRAINT `participantes_eventos_ibfk_2` FOREIGN KEY (`id_usuario`) REFERENCES `usuarios` (`id_usuario`);
+ALTER TABLE `solicitudes_adopcion`
+  ADD CONSTRAINT `solicitudes_adopcion_ibfk_1` FOREIGN KEY (`id_usuario`) REFERENCES `usuarios` (`id_usuario`),
+  ADD CONSTRAINT `solicitudes_adopcion_ibfk_2` FOREIGN KEY (`id_mascota`) REFERENCES `mascotas` (`id_mascota`);
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

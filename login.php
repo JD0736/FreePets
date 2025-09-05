@@ -5,6 +5,9 @@ include 'conexion.php';
 $mensaje = "";
 $tipo_mensaje = ""; // éxito o error
 
+// Verificar si hay una sesión de administrador activa
+$es_admin = isset($_SESSION['tipo_usuario']) && $_SESSION['tipo_usuario'] === 'admin';
+
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     // Verificar si es login o registro
     if (isset($_POST['login'])) {
@@ -24,7 +27,13 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 $_SESSION['usuario_id'] = $usuario['id_usuario'];
                 $_SESSION['nombre'] = $usuario['nombre'];
                 $_SESSION['tipo_usuario'] = $usuario['tipo_usuario'];
-                header("Location: index.php");
+                
+                // Redirigir según el tipo de usuario
+                if ($usuario['tipo_usuario'] === 'admin') {
+                    header("Location: admin_usuarios.php");
+                } else {
+                    header("Location: index.php");
+                }
                 exit();
             } else {
                 $mensaje = "Contraseña incorrecta.";
@@ -53,6 +62,14 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             $mensaje = "El usuario ya existe.";
             $tipo_mensaje = "error";
         } else {
+            // Si se intenta registrar como admin, verificar si hay una sesión de admin
+            if ($tipo_usuario === 'admin' && !$es_admin) {
+                $mensaje = "Solo los administradores pueden crear cuentas de administrador.";
+                $tipo_mensaje = "error";
+                // Forzar el tipo de usuario a adoptante
+                $tipo_usuario = 'adoptante';
+            }
+            
             // Hash de la contraseña
             $hashed_password = password_hash($password, PASSWORD_DEFAULT);
             
@@ -69,12 +86,27 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 $_SESSION['usuario_id'] = $stmt_insert->insert_id;
                 $_SESSION['nombre'] = $nombre;
                 $_SESSION['tipo_usuario'] = $tipo_usuario;
+                
+                // Redirigir según el tipo de usuario
+                if ($tipo_usuario === 'admin') {
+                    header("Location: admin_usuarios.php");
+                    exit();
+                } else {
+                    header("Location: index.php");
+                    exit();
+                }
             } else {
                 $mensaje = "Error al crear el usuario: " . $conn->error;
                 $tipo_mensaje = "error";
             }
         }
     }
+}
+
+// Determinar qué pestaña mostrar por defecto
+$mostrar_login = true;
+if (isset($_GET['admin_registro']) && $es_admin) {
+    $mostrar_login = false;
 }
 ?>
 
@@ -87,17 +119,18 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
   <link rel="stylesheet" href="vista/style.css">
   <link rel="stylesheet" href="vista/forms.css">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+  
 </head>
 <body>
 
   <div class="form-container">
     <div class="tabs">
-      <div class="tab active" data-target="login">Login</div>
-      <div class="tab" data-target="registro">Registro</div>
+      <div class="tab <?php echo $mostrar_login ? 'active' : ''; ?>" data-target="login">Login</div>
+      <div class="tab <?php echo !$mostrar_login ? 'active' : ''; ?>" data-target="registro">Registro</div>
     </div>
 
     <!-- Login -->
-    <div id="login" class="form-content active">
+    <div id="login" class="form-content <?php echo $mostrar_login ? 'active' : ''; ?>">
       <h2>Iniciar Sesión</h2>
       <form method="POST" action="">
         <input type="hidden" name="login" value="1">
@@ -114,10 +147,14 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
       <div class="form-links">
         <a href="#">¿Olvidaste tu contraseña?</a>
       </div>
+      
+      <?php if ($es_admin): ?>
+        <a href="?admin_registro=1" class="admin-link">Registrar nuevo administrador</a>
+      <?php endif; ?>
     </div>
 
     <!-- Registro -->
-    <div id="registro" class="form-content">
+    <div id="registro" class="form-content <?php echo !$mostrar_login ? 'active' : ''; ?>">
       <h2>Registro</h2>
       <form method="POST" action="">
         <input type="hidden" name="registro" value="1">
@@ -134,8 +171,25 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
           <i class="fa fa-lock"></i>
         </div>
 
+        <div class="input-group">
+          <select name="tipo_usuario" id="tipo_usuario" required>
+            <option value="">Selecciona un rol</option>
+            <option value="adoptante">Adoptante</option>
+            <?php if ($es_admin): ?>
+              <option value="admin">Administrador</option>
+            <?php endif; ?>
+          </select>
+          <i class="fa fa-users"></i>
+        </div>
+
         <button type="submit" class="btn-submit">Registrarse</button>
       </form>
+      
+      <?php if ($es_admin): ?>
+        <a href="admin_usuarios.php" class="admin-link">Volver al panel de administración</a>
+      <?php else: ?>
+        <a href="?" class="admin-link">Volver al login</a>
+      <?php endif; ?>
     </div>
   </div>
 
@@ -147,9 +201,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     <p><?php echo $mensaje; ?></p>
     <button class="popup-btn <?php echo $tipo_mensaje; ?>" onclick="cerrarPopup()">Aceptar</button>
   </div>
-
-  <script src="js/script.js"></script>
-
-
+<script src="js/script.js"></script>
 </body>
 </html>

@@ -8,6 +8,9 @@ $tipo_mensaje = ""; // éxito o error
 // Verificar si hay una sesión de administrador activa
 $es_admin = isset($_SESSION['tipo_usuario']) && $_SESSION['tipo_usuario'] === 'admin';
 
+// Permitir registro de admin sin ser admin (solo para desarrollo)
+$modo_desarrollo = true; // Cambiar a false en producción
+
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     // Verificar si es login o registro
     if (isset($_POST['login'])) {
@@ -62,8 +65,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             $mensaje = "El usuario ya existe.";
             $tipo_mensaje = "error";
         } else {
-            // Si se intenta registrar como admin, verificar si hay una sesión de admin
-            if ($tipo_usuario === 'admin' && !$es_admin) {
+            // Si se intenta registrar como admin, verificar si hay una sesión de admin o está en modo desarrollo
+            if ($tipo_usuario === 'admin' && !$es_admin && !$modo_desarrollo) {
                 $mensaje = "Solo los administradores pueden crear cuentas de administrador.";
                 $tipo_mensaje = "error";
                 // Forzar el tipo de usuario a adoptante
@@ -105,7 +108,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
 // Determinar qué pestaña mostrar por defecto
 $mostrar_login = true;
-if (isset($_GET['admin_registro']) && $es_admin) {
+if (isset($_GET['admin_registro']) && ($es_admin || $modo_desarrollo)) {
     $mostrar_login = false;
 }
 ?>
@@ -148,7 +151,7 @@ if (isset($_GET['admin_registro']) && $es_admin) {
         <a href="#">¿Olvidaste tu contraseña?</a>
       </div>
       
-      <?php if ($es_admin): ?>
+      <?php if ($es_admin || $modo_desarrollo): ?>
         <a href="?admin_registro=1" class="admin-link">Registrar nuevo administrador</a>
       <?php endif; ?>
     </div>
@@ -175,7 +178,7 @@ if (isset($_GET['admin_registro']) && $es_admin) {
           <select name="tipo_usuario" id="tipo_usuario" required>
             <option value="">Selecciona un rol</option>
             <option value="adoptante">Adoptante</option>
-            <?php if ($es_admin): ?>
+            <?php if ($es_admin || $modo_desarrollo): ?>
               <option value="admin">Administrador</option>
             <?php endif; ?>
           </select>

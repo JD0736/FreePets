@@ -2,9 +2,50 @@
 session_start();
 include 'conexion.php';
 
+// Verificar si el usuario es administrador
+$es_admin = isset($_SESSION['tipo_usuario']) && $_SESSION['tipo_usuario'] === 'admin';
+
 // Procesar donaciones
 $mensaje = "";
 $tipo_mensaje = "";
+
+// Procesar administración de donaciones
+if ($es_admin) {
+    // Eliminar donación
+    if (isset($_GET['eliminar_donacion'])) {
+        $id_donacion = $_GET['eliminar_donacion'];
+        
+        $sql = "DELETE FROM donaciones WHERE id_donacion = ?";
+        $stmt = $conn->prepare($sql);
+        $stmt->bind_param("i", $id_donacion);
+        
+        if ($stmt->execute()) {
+            $mensaje = "Donación eliminada correctamente.";
+            $tipo_mensaje = "exito";
+        } else {
+            $mensaje = "Error al eliminar la donación: " . $conn->error;
+            $tipo_mensaje = "error";
+        }
+    }
+    
+    // Cambiar estado de donación
+    if (isset($_GET['cambiar_estado'])) {
+        $id_donacion = $_GET['cambiar_estado'];
+        $nuevo_estado = $_GET['estado'];
+        
+        $sql = "UPDATE donaciones SET estado = ? WHERE id_donacion = ?";
+        $stmt = $conn->prepare($sql);
+        $stmt->bind_param("si", $nuevo_estado, $id_donacion);
+        
+        if ($stmt->execute()) {
+            $mensaje = "Estado de donación actualizado correctamente.";
+            $tipo_mensaje = "exito";
+        } else {
+            $mensaje = "Error al actualizar el estado: " . $conn->error;
+            $tipo_mensaje = "error";
+        }
+    }
+}
 
 if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['realizar_donacion'])) {
     $tipo_donacion = $_POST['tipo_donacion'];
@@ -53,6 +94,21 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['realizar_donacion'])) 
     }
 }
 
+// Obtener donaciones para administración
+$donaciones = [];
+if ($es_admin) {
+    $sql_donaciones = "SELECT d.*, u.nombre as donante 
+                      FROM donaciones d 
+                      LEFT JOIN usuarios u ON d.id_usuario = u.id_usuario 
+                      ORDER BY d.fecha_donacion DESC";
+    $resultado_donaciones = $conn->query($sql_donaciones);
+    if ($resultado_donaciones->num_rows > 0) {
+        while($fila = $resultado_donaciones->fetch_assoc()) {
+            $donaciones[] = $fila;
+        }
+    }
+}
+
 $page_title = "FreePets - Donaciones";
 include 'includes/header.php';
 ?>
@@ -70,6 +126,71 @@ include 'includes/header.php';
         <p>Tu donación ayuda a mantener nuestro refugio y a proporcionar cuidado a los animales necesitados. 
            ¡Cada contribución cuenta!</p>
     </div>
+    
+    <!-- Panel de administración de donaciones -->
+    <?php if ($es_admin): ?>
+    <div class="admin-panel">
+        <h3>Administrar Donaciones</h3>
+        
+        <?php if (count($donaciones) > 0): ?>
+            <div class="table-responsive">
+                <table class="data-table">
+                    <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>Donante</th>
+                            <th>Tipo</th>
+                            <th>Artículo/Cantidad</th>
+                            <th>Monto</th>
+                            <th>Fecha</th>
+                            <th>Estado</th>
+                            <th>Acciones</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <?php foreach ($donaciones as $donacion): ?>
+                            <tr>
+                                <td><?php echo $donacion['id_donacion']; ?></td>
+                                <td><?php echo $donacion['donante'] ? htmlspecialchars($donacion['donante']) : 'Anónimo'; ?></td>
+                                <td><?php echo ucfirst($donacion['tipo_donacion']); ?></td>
+                                <td>
+                                    <?php if ($donacion['tipo_donacion'] === 'dinero'): ?>
+                                        Donación monetaria
+                                    <?php else: ?>
+                                        <?php echo htmlspecialchars($donacion['tipo_articulo']); ?> (<?php echo $donacion['cantidad']; ?>)
+                                    <?php endif; ?>
+                                </td>
+                                <td>
+                                    <?php if ($donacion['monto'] > 0): ?>
+                                        $<?php echo number_format($donacion['monto'], 2); ?>
+                                    <?php else: ?>
+                                        -
+                                    <?php endif; ?>
+                                </td>
+                                <td><?php echo date('d/m/Y', strtotime($donacion['fecha_donacion'])); ?></td>
+                                <td>
+                                    <span class="estado-badge estado-<?php echo $donacion['estado']; ?>">
+                                        <?php echo ucfirst($donacion['estado']); ?>
+                                    </span>
+                                </td>
+                                <td>
+                                    <div class="admin-actions">
+                                        <?php if ($donacion['estado'] == 'pendiente'): ?>
+                                            <button class="admin-btn" onclick="cambiarEstado(<?php echo $donacion['id_donacion']; ?>, 'aprobado')">Aprobar</button>
+                                        <?php endif; ?>
+                                        <button class="admin-btn delete" onclick="eliminarDonacion(<?php echo $donacion['id_donacion']; ?>)">Eliminar</button>
+                                    </div>
+                                </td>
+                            </tr>
+                        <?php endforeach; ?>
+                    </tbody>
+                </table>
+            </div>
+        <?php else: ?>
+            <p>No hay donaciones registradas.</p>
+        <?php endif; ?>
+    </div>
+    <?php endif; ?>
     
     <div class="tipos-donacion">
         <!-- Donación de juguetes -->
@@ -199,6 +320,20 @@ include 'includes/header.php';
         </div>
     </div>
 </section>
+
+<script>
+function eliminarDonacion(id) {
+    if (confirm('¿Está seguro de que desea eliminar esta donación? Esta acción no se puede deshacer.')) {
+        window.location.href = 'donacion.php?eliminar_donacion=' + id;
+    }
+}
+
+function cambiarEstado(id, estado) {
+    if (confirm('¿Está seguro de que desea cambiar el estado de esta donación?')) {
+        window.location.href = 'donacion.php?cambiar_estado=' + id + '&estado=' + estado;
+    }
+}
+</script>
 
 <?php
 include 'includes/footer.php';

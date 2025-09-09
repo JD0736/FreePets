@@ -1,8 +1,7 @@
 <?php
-session_start();
-
-// Configuración de título de página
-$page_title = isset($page_title) ? $page_title : 'FreePets';
+// Verificar si hay una sesión activa
+$usuario_autenticado = isset($_SESSION['usuario_id']);
+$es_admin = isset($_SESSION['tipo_usuario']) && $_SESSION['tipo_usuario'] === 'admin';
 ?>
 <!DOCTYPE html>
 <html lang="es">
@@ -25,16 +24,14 @@ $page_title = isset($page_title) ? $page_title : 'FreePets';
 
     <nav class="navbar">
         <a href="index.php#home" <?php echo basename($_SERVER['PHP_SELF']) == 'index.php' ? 'class="active"' : ''; ?>>Inicio</a>
-        
         <div class="dropdown">
-            <a href="index.php#about" class="dropbtn <?php echo in_array(basename($_SERVER['PHP_SELF']), ['mision_y_vision.php', 'nosotros.php']) ? 'active' : ''; ?>">Nosotros</a>
+            <a href="index.php#about" class="dropbtn <?php echo (basename($_SERVER['PHP_SELF']) == 'mision_y_vision.php') ? 'active' : ''; ?>">Nosotros</a>
             <div class="dropdown-content">
                 <a href="mision_y_vision.php">Misión y Visión</a>
             </div>
         </div>
-
         <div class="dropdown">
-            <a href="index.php#services" class="dropbtn <?php echo in_array(basename($_SERVER['PHP_SELF']), ['adopcion.php', 'eventos.php', 'reportes_mascotas_situaciones.php', 'donacion.php']) ? 'active' : ''; ?>">Servicios</a>
+            <a href="index.php#services" class="dropbtn <?php echo (in_array(basename($_SERVER['PHP_SELF']), ['adopcion.php', 'eventos.php', 'reportes_mascotas_situaciones.php', 'donacion.php'])) ? 'active' : ''; ?>">Servicios</a>
             <div class="dropdown-content">
                 <a href="adopcion.php">Centro de adopción</a>
                 <a href="eventos.php">Eventos solidarios</a>
@@ -42,17 +39,22 @@ $page_title = isset($page_title) ? $page_title : 'FreePets';
                 <a href="donacion.php">Donar</a>
             </div>
         </div>
-
         <a href="index.php#contact" <?php echo basename($_SERVER['PHP_SELF']) == 'index.php' && isset($_GET['contact']) ? 'class="active"' : ''; ?>>Contacto</a>
-        <?php if (isset($_SESSION['tipo_usuario']) && $_SESSION['tipo_usuario'] === 'admin'): ?>
-    <li><a href="admin_usuarios.php">Administrar Usuarios</a></li>
-<?php endif; ?>
-        <!-- Enlace de Login/Logout y Mi Perfil -->
-        <?php if (isset($_SESSION['usuario_id'])): ?>
-            <a href="perfil.php" <?php echo basename($_SERVER['PHP_SELF']) == 'perfil.php' ? 'class="active"' : ''; ?>>Mi Perfil</a>
-            <?php if ($_SESSION['tipo_usuario'] === 'admin'): ?>
-                <a href="admin/dashboard.php" <?php echo strpos($_SERVER['PHP_SELF'], 'admin/') !== false ? 'class="active"' : ''; ?>>Admin</a>
+        
+        <?php if ($usuario_autenticado): ?>
+            <?php if ($es_admin): ?>
+                <div class="dropdown">
+                    <a href="admin_usuarios.php" class="dropbtn <?php echo (basename($_SERVER['PHP_SELF']) == 'admin_usuarios.php') ? 'active' : ''; ?>">Administrar</a>
+                    <div class="dropdown-content">
+                        <a href="admin_usuarios.php">Usuarios</a>
+                        <a href="adopcion.php">Mascotas</a>
+                        <a href="eventos.php">Eventos</a>
+                        <a href="reportes_mascotas_situaciones.php">Reportes</a>
+                    </div>
+                </div>
             <?php endif; ?>
+            
+            <a href="perfil.php" <?php echo basename($_SERVER['PHP_SELF']) == 'perfil.php' ? 'class="active"' : ''; ?>>Mi Perfil</a>
             <a href="logout.php">Cerrar Sesión (<?php echo htmlspecialchars($_SESSION['nombre']); ?>)</a>
         <?php else: ?>
             <a href="login.php" <?php echo basename($_SERVER['PHP_SELF']) == 'login.php' ? 'class="active"' : ''; ?>>Iniciar Sesión</a>

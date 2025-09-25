@@ -9,7 +9,7 @@ $es_admin = isset($_SESSION['tipo_usuario']) && $_SESSION['tipo_usuario'] === 'a
 $mensaje = "";
 $tipo_mensaje = "";
 
-// Crear mascota
+// Crear mascota (para administradores)
 if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['crear_mascota']) && $es_admin) {
     $nombre = filter_input(INPUT_POST, 'nombre', FILTER_SANITIZE_STRING);
     $especie = filter_input(INPUT_POST, 'especie', FILTER_SANITIZE_STRING);
@@ -45,6 +45,46 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['crear_mascota']) && $e
         $tipo_mensaje = "exito";
     } else {
         $mensaje = "Error al crear la mascota: " . $conn->error;
+        $tipo_mensaje = "error";
+    }
+}
+
+// Procesar registro de mascota (para usuarios normales)
+if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['registrar_mascota']) && isset($_SESSION['usuario_id'])) {
+    $nombre = filter_input(INPUT_POST, 'nombre', FILTER_SANITIZE_STRING);
+    $especie = filter_input(INPUT_POST, 'especie', FILTER_SANITIZE_STRING);
+    $raza = filter_input(INPUT_POST, 'raza', FILTER_SANITIZE_STRING);
+    $edad = $_POST['edad'];
+    $sexo = $_POST['sexo'];
+    $descripcion = filter_input(INPUT_POST, 'descripcion', FILTER_SANITIZE_STRING);
+    $estado = 'disponible'; // Por defecto para mascotas registradas por usuarios
+    
+    // Procesar imagen
+    $imagen_url = 'multimedia/default-pet.jpg';
+    if (isset($_FILES['imagen']) && $_FILES['imagen']['error'] == 0) {
+        $target_dir = "uploads/mascotas/";
+        if (!file_exists($target_dir)) {
+            mkdir($target_dir, 0777, true);
+        }
+        $imageFileType = strtolower(pathinfo($_FILES["imagen"]["name"], PATHINFO_EXTENSION));
+        $new_filename = uniqid() . '.' . $imageFileType;
+        $target_file = $target_dir . $new_filename;
+        
+        if (move_uploaded_file($_FILES["imagen"]["tmp_name"], $target_file)) {
+            $imagen_url = $target_file;
+        }
+    }
+    
+    $sql = "INSERT INTO mascotas (nombre, especie, raza, edad, sexo, descripcion, imagen_url, estado) 
+            VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
+    $stmt = $conn->prepare($sql);
+    $stmt->bind_param("sssdssss", $nombre, $especie, $raza, $edad, $sexo, $descripcion, $imagen_url, $estado);
+    
+    if ($stmt->execute()) {
+        $mensaje = "Mascota registrada correctamente. Será revisada por nuestro equipo.";
+        $tipo_mensaje = "exito";
+    } else {
+        $mensaje = "Error al registrar la mascota: " . $conn->error;
         $tipo_mensaje = "error";
     }
 }
@@ -224,7 +264,9 @@ include 'includes/header.php';
         <h3>Registrar Mascota para Adopción</h3>
         
         <?php if (isset($_SESSION['usuario_id'])): ?>
-            <form class="formulario-registro" action="procesar_mascota.php" method="POST" enctype="multipart/form-data">
+            <form class="formulario-registro" action="adopcion.php" method="POST" enctype="multipart/form-data">
+                <input type="hidden" name="registrar_mascota" value="1">
+                
                 <div class="form-group">
                     <label for="nombre">Nombre:*</label>
                     <input type="text" id="nombre" name="nombre" required>

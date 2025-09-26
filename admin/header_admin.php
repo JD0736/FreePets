@@ -1,6 +1,6 @@
 <?php
 if (!isset($_SESSION['usuario_id']) || $_SESSION['tipo_usuario'] !== 'admin') {
-    header("Location: ../login.php");
+    header("Location: login.php");
     exit();
 }
 ?>
@@ -10,18 +10,21 @@ if (!isset($_SESSION['usuario_id']) || $_SESSION['tipo_usuario'] !== 'admin') {
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Admin - <?php echo isset($page_title) ? $page_title : 'FreePets'; ?></title>
-    <link rel="stylesheet" href="../vista/style.css">
+    <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="../css/admin.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
 </head>
 <body>
 
 <div class="admin-header">
-    <h2><i class="fas fa-cog"></i> Panel de Administración - FreePets</h2>
-    <div>
-        <span>Hola, <?php echo htmlspecialchars($_SESSION['nombre']); ?></span>
-        <a href="../logout.php" style="color: white; margin-left: 1rem;">
-            <i class="fas fa-sign-out-alt"></i> Salir
-        </a>
+    <div class="admin-header-content">
+        <h2><i class="fas fa-cog"></i> Panel de Administración - FreePets</h2>
+        <div class="admin-user-info">
+            <span>Hola, <?php echo htmlspecialchars($_SESSION['nombre']); ?></span>
+            <a href="../logout.php" class="logout-btn">
+                <i class="fas fa-sign-out-alt"></i> Salir
+            </a>
+        </div>
     </div>
 </div>
 
@@ -29,29 +32,24 @@ if (!isset($_SESSION['usuario_id']) || $_SESSION['tipo_usuario'] !== 'admin') {
     <a href="dashboard.php" class="<?php echo basename($_SERVER['PHP_SELF']) == 'dashboard.php' ? 'active' : ''; ?>">
         <i class="fas fa-tachometer-alt"></i> Dashboard
     </a>
-    <a href="usuarios.php" class="<?php echo basename($_SERVER['PHP_SELF']) == 'usuarios.php' ? 'active' : ''; ?>">
+    <a href="admin_usuarios.php" class="<?php echo basename($_SERVER['PHP_SELF']) == 'admin_usuarios.php' ? 'active' : ''; ?>">
         <i class="fas fa-users"></i> Usuarios
     </a>
-    <a href="mascotas.php" class="<?php echo basename($_SERVER['PHP_SELF']) == 'mascotas.php' ? 'active' : ''; ?>">
+    <a href="admin_mascotas.php" class="<?php echo basename($_SERVER['PHP_SELF']) == 'admin_mascotas.php' ? 'active' : ''; ?>">
         <i class="fas fa-paw"></i> Mascotas
     </a>
-    <a href="reportes.php" class="<?php echo basename($_SERVER['PHP_SELF']) == 'reportes.php' ? 'active' : ''; ?>">
+    <a href="admin_reportes.php" class="<?php echo basename($_SERVER['PHP_SELF']) == 'admin_reportes.php' ? 'active' : ''; ?>">
         <i class="fas fa-flag"></i> Reportes
     </a>
-    <a href="donaciones.php" class="<?php echo basename($_SERVER['PHP_SELF']) == 'donaciones.php' ? 'active' : ''; ?>">
+    <a href="admin_donaciones.php" class="<?php echo basename($_SERVER['PHP_SELF']) == 'admin_donaciones.php' ? 'active' : ''; ?>">
         <i class="fas fa-hand-holding-heart"></i> Donaciones
     </a>
-    <a href="eventos.php" class="<?php echo basename($_SERVER['PHP_SELF']) == 'eventos.php' ? 'active' : ''; ?>">
+    <a href="admin_eventos.php" class="<?php echo basename($_SERVER['PHP_SELF']) == 'admin_eventos.php' ? 'active' : ''; ?>">
         <i class="fas fa-calendar"></i> Eventos
     </a>
-    <a href="../index.php" style="background: #df9d40;">
+    <a href="../index.php" class="back-to-site">
         <i class="fas fa-home"></i> Volver al Sitio
     </a>
 </nav>
 
-<div class="admin-content">
-    <?php if (isset($page_title)): ?>
-    <div class="breadcrumb">
-        <h3><?php echo $page_title; ?></h3>
-    </div>
-    <?php endif; ?>
+<main class="admin-main">
